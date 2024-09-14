@@ -1,0 +1,216 @@
+{
+    "Routes": [
+        {
+            "DownStreamPathtemplate": "/api/ms/creditcardapplication",
+            "DownStreamScheme": "http",
+            "DownStreamHostAndPorts": [
+                {
+                    "host": "localhost",
+                    "port": 8079
+                }
+            ],
+            "UpstreamPathTemplate": "/api/creditcardapplication",
+            "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
+            "routeIsCaseSensititve": false,
+            "DownStreamHttpVersion": "2.0",
+            "DangerousAcceptAnyServerCertificate": false
+        },
+        {
+            "DownStreamPathtemplate": "/api/ms/creditcardapplication/{id}",
+            "DownStreamScheme": "http",
+            "DownStreamHostAndPorts": [
+                {
+                    "host": "localhost",
+                    "port": 8079
+                }
+            ],
+            "UpstreamPathTemplate": "/api/creditcardapplication/{id}",
+            "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
+            "routeIsCaseSensititve": false,
+            "DownStreamHttpVersion": "2.0",
+            "DangerousAcceptAnyServerCertificate": false
+        },
+        {
+            "DownStreamPathtemplate": "/api/ms/creditcardapplication/user/{userId}",
+            "DownStreamScheme": "http",
+            "DownStreamHostAndPorts": [
+                {
+                    "host": "localhost",
+                    "port": 8079
+                }
+            ],
+            "UpstreamPathTemplate": "/api/creditcardapplication/user/{userId}",
+            "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
+            "routeIsCaseSensititve": false,
+            "DownStreamHttpVersion": "2.0",
+            "DangerousAcceptAnyServerCertificate": false
+        },
+        {
+            "DownStreamPathtemplate": "/api/ms/creditcarddisbursements",
+            "DownStreamScheme": "http",
+            "DownStreamHostAndPorts": [
+                {
+                    "host": "localhost",
+                    "port": 8079
+                }
+            ],
+            "UpstreamPathTemplate": "/api/creditcarddisbursements",
+            "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
+            "routeIsCaseSensititve": false,
+            "DownStreamHttpVersion": "2.0",
+            "DangerousAcceptAnyServerCertificate": false
+        },
+        {
+            "DownStreamPathtemplate": "/api/ms/creditcarddisbursements/{id}",
+            "DownStreamScheme": "http",
+            "DownStreamHostAndPorts": [
+                {
+                    "host": "localhost",
+                    "port": 8079
+                }
+            ],
+            "UpstreamPathTemplate": "/api/creditcarddisbursements/{id}",
+            "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
+            "routeIsCaseSensititve": false,
+            "DownStreamHttpVersion": "2.0",
+            "DangerousAcceptAnyServerCertificate": false
+        },
+        {
+            "DownStreamPathtemplate": "/api/ms/register",
+            "DownStreamScheme": "http",
+            "DownStreamHostAndPorts": [
+                {
+                    "host": "localhost",
+                    "port": 8079
+                }
+            ],
+            "UpstreamPathTemplate": "/api/register",
+            "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
+            "routeIsCaseSensititve": false,
+            "DownStreamHttpVersion": "2.0",
+            "DangerousAcceptAnyServerCertificate": false
+        },
+        {
+            "DownStreamPathtemplate": "/api/ms/login",
+            "DownStreamScheme": "http",
+            "DownStreamHostAndPorts": [
+                {
+                    "host": "localhost",
+                    "port": 8079
+                }
+            ],
+            "UpstreamPathTemplate": "/api/login",
+            "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
+            "routeIsCaseSensititve": false,
+            "DownStreamHttpVersion": "2.0",
+            "DangerousAcceptAnyServerCertificate": false
+        },
+
+        {
+            "DownStreamPathtemplate": "/api/ms/feedback",
+            "DownStreamScheme": "http",
+            "DownStreamHostAndPorts": [
+                {
+                    "host": "localhost",
+                    "port": 8078
+                }
+            ],
+            "UpstreamPathTemplate": "/api/feedback",
+            "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
+            "routeIsCaseSensititve": false,
+            "DownStreamHttpVersion": "2.0",
+            "DangerousAcceptAnyServerCertificate": false
+        }, {
+            "DownStreamPathtemplate": "/api/ms/feedback/{feedbackId}",
+            "DownStreamScheme": "http",
+            "DownStreamHostAndPorts": [
+                {
+                    "host": "localhost",
+                    "port": 8078
+                }
+            ],
+            "UpstreamPathTemplate": "/api/feedback/{feedbackId}",
+            "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
+            "routeIsCaseSensititve": false,
+            "DownStreamHttpVersion": "2.0",
+            "DangerousAcceptAnyServerCertificate": false
+        },
+        {
+            "DownStreamPathtemplate": "/api/ms/feedback/user/{userId}",
+            "DownStreamScheme": "http",
+            "DownStreamHostAndPorts": [
+                {
+                    "host": "localhost",
+                    "port": 8078
+                }
+            ],
+            "UpstreamPathTemplate": "/api/feedback/user/{userId}",
+            "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
+            "routeIsCaseSensititve": false,
+            "DownStreamHttpVersion": "2.0",
+            "DangerousAcceptAnyServerCertificate": false
+        },
+        {
+            "DownStreamPathtemplate": "/api/ms/notifications",
+            "DownStreamScheme": "http",
+            "DownStreamHostAndPorts": [
+                {
+                    "host": "localhost",
+                    "port": 8077
+                }
+            ],
+            "UpstreamPathTemplate": "/api/notifications",
+            "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
+            "routeIsCaseSensititve": false,
+            "DownStreamHttpVersion": "2.0",
+            "DangerousAcceptAnyServerCertificate": false
+        },
+        {
+            "DownStreamPathtemplate": "/api/ms/notifications/{notificationId}",
+            "DownStreamScheme": "http",
+            "DownStreamHostAndPorts": [
+                {
+                    "host": "localhost",
+                    "port": 8077
+                }
+            ],
+            "UpstreamPathTemplate": "/api/notifications{notificationId}",
+            "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
+            "routeIsCaseSensititve": false,
+            "DownStreamHttpVersion": "2.0",
+            "DangerousAcceptAnyServerCertificate": false
+        },
+        {
+            "DownStreamPathtemplate": "/api/ms/creditcards",
+            "DownStreamScheme": "http",
+            "DownStreamHostAndPorts": [
+                {
+                    "host": "localhost",
+                    "port": 8076
+                }
+            ],
+            "UpstreamPathTemplate": "/api/creditcards",
+            "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
+            "routeIsCaseSensititve": false,
+            "DownStreamHttpVersion": "2.0",
+            "DangerousAcceptAnyServerCertificate": false
+        },
+        
+        {
+            "DownStreamPathtemplate": "/api/ms/creditcards/{id}",
+            "DownStreamScheme": "http",
+            "DownStreamHostAndPorts": [
+                {
+                    "host": "localhost",
+                    "port": 8076
+                }
+            ],
+            "UpstreamPathTemplate": "/api/creditcards/{id}",
+            "UpstreamHttpMethod": ["GET","POST","PUT","DELETE"],
+            "routeIsCaseSensititve": false,
+            "DownStreamHttpVersion": "2.0",
+            "DangerousAcceptAnyServerCertificate": false
+        }
+        
+    ]
+}

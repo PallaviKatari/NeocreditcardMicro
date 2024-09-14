@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\dotnetapp4.props" />
+</Project>

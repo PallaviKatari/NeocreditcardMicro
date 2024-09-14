@@ -1,0 +1,116 @@
+.my-feedback-wrapper {
+    position: relative;
+  }
+  
+  .my-feedback-container {
+    max-width: 80%;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    transition: filter 0.3s ease;
+  }
+  
+  .blur {
+    filter: blur(5px);
+  }
+  
+  .feedback-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .feedback-table th,
+  .feedback-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center !important;
+  }
+  
+  .feedback-table th {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .delete-feedback-button {
+    background-color: #e60000;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .delete-feedback-button:hover {
+    background-color: #c20000;
+  }
+  
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Darken the background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .delete-popup,
+  .success-message {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    text-align: center;
+  }
+  
+  .delete-popup p,
+  .success-message p {
+    margin-bottom: 20px;
+  }
+  
+  .confirm-delete-button,
+  .cancel-delete-button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .confirm-delete-button {
+    background-color: #e60000;
+    color: #fff;
+  }
+  
+  .confirm-delete-button:hover {
+    background-color: #c20000;
+  }
+  
+  .cancel-delete-button {
+    background-color: #ccc;
+    color: #333;
+  }
+  
+  .cancel-delete-button:hover {
+    background-color: #999;
+  }
+  
+  .success-message button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .success-message button:hover {
+    background-color: #0056b3;
+  }
+  

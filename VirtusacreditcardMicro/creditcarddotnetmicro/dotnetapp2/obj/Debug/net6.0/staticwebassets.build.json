@@ -1,0 +1,23 @@
+{
+  "Version": 1,
+  "Hash": "IshHu0reHE7/8ZwqMyFqs6XNRnsoF8fYp9lzsXopn3I=",
+  "Source": "dotnetapp2",
+  "BasePath": "_content/dotnetapp2",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\cgvak-lt156\\Desktop\\VirtusaloanMicro\\VirtusaloanMicro\\loandotnetmicro\\dotnetapp\\dotnetapp.csproj",
+      "Version": 2,
+      "Source": "dotnetapp",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
