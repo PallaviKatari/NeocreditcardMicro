@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "IshHu0reHE7/8ZwqMyFqs6XNRnsoF8fYp9lzsXopn3I=",
+  "Hash": "y3iDYvNpm2LwZF+CrYK8y3Yed1Lq1t+4yV0aRmn1HpI=",
   "Source": "dotnetapp2",
   "BasePath": "_content/dotnetapp2",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\Users\\cgvak-lt156\\Desktop\\VirtusaloanMicro\\VirtusaloanMicro\\loandotnetmicro\\dotnetapp\\dotnetapp.csproj",
+      "Identity": "C:\\Users\\cgvak-lt156\\Desktop\\VirtusaCreditCardMicro\\VirtusacreditcardMicro\\VirtusacreditcardMicro\\creditcarddotnetmicro\\dotnetapp\\dotnetapp.csproj",
       "Version": 2,
       "Source": "dotnetapp",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",

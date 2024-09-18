@@ -186,7 +186,7 @@ function Signup() {
             <select id="userRole" name="userRole" value={formData.userRole} onChange={handleChange}> {/* Adjusted field name */}
               <option value="">Select Role</option>
               <option value="Customer">Customer</option> {/* Adjusted value */}
-              <option value="CreditCardManager">CreditCardManager</option> {/* Adjusted value */}
+              <option value="CreditCardOfficer">CreditCardOfficer</option> {/* Adjusted value */}
               <option value="BranchManager">BranchManager</option>
             </select>
           </div>

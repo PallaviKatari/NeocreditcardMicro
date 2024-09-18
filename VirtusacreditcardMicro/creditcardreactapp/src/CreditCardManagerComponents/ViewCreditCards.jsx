@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ViewCreditCards.css";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "react-query";
 import axios from "axios";
 import API_BASE_URL from "../apiConfig";
 import CreditCardManagerNavbar from "./CreditCardManagerNavbar";
@@ -9,7 +8,23 @@ import CreditCardManagerNavbar from "./CreditCardManagerNavbar";
 const ViewCreditCards = () => {
   const navigate = useNavigate();
   const [showDeletePopup, setShowDeletePopup] = useState(false);
+  const [showEditPopup, setShowEditPopup] = useState(false);
   const [creditCardToDelete, setCreditCardToDelete] = useState(null);
+  const [creditCardToEdit, setCreditCardToEdit] = useState(null);
+  const [formData, setFormData] = useState({
+    CardType: "",
+    CreditLimit: 0,
+    InterestRate: 0,
+    AnnualFee: 0,
+    MinimumPaymentPercentage: 0,
+    CashAdvanceFee: 0,
+    GracePeriodDays: 0,
+    LatePaymentFee: 0,
+    Status: "Pending",
+    ExpiryDate: "",
+    IssuingBank: "",
+    CardholderName: "",
+  });
   const [searchValue, setSearchValue] = useState("");
   const [sortValue, setSortValue] = useState(0);
   const [page, setPage] = useState(1);
@@ -17,8 +32,8 @@ const ViewCreditCards = () => {
   const [maxRecords, setMaxRecords] = useState(1);
 
   const totalPages = Math.ceil(maxRecords / limit);
-
   const [availableCreditCards, setAvailableCreditCards] = useState([]);
+
   const updateAvailableCreditCards = (newCreditCards) => {
     setAvailableCreditCards(newCreditCards);
     setMaxRecords(newCreditCards.length);
@@ -63,7 +78,7 @@ const ViewCreditCards = () => {
           }
         );
         if (response.status === 200) {
-          refetch();
+         // refetch();
         } else {
           console.log("Error");
         }
@@ -77,6 +92,55 @@ const ViewCreditCards = () => {
   const closeDeletePopup = () => {
     setCreditCardToDelete(null);
     setShowDeletePopup(false);
+  };
+
+  const handleEditClick = (creditCard) => {
+    setFormData({
+      CardType: creditCard.CardType,
+      CreditLimit: creditCard.CreditLimit,
+      InterestRate: creditCard.InterestRate,
+      AnnualFee: creditCard.AnnualFee,
+      MinimumPaymentPercentage: creditCard.MinimumPaymentPercentage,
+      CashAdvanceFee: creditCard.CashAdvanceFee,
+      GracePeriodDays: creditCard.GracePeriodDays,
+      LatePaymentFee: creditCard.LatePaymentFee,
+      Status: creditCard.Status,
+      ExpiryDate: creditCard.ExpiryDate,
+      IssuingBank: creditCard.IssuingBank,
+      CardholderName: creditCard.CardholderName,
+    });
+    setCreditCardToEdit(creditCard.CreditCardId);
+    setShowEditPopup(true);
+  };
+
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleUpdateCreditCard = async () => {
+    try {
+      const response = await axios.put(
+        `${API_BASE_URL}/api/creditcards/${creditCardToEdit}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+       // refetch();
+        closeEditPopup();
+      }
+    } catch (error) {
+      console.log("Error updating credit card:", error);
+    }
+  };
+
+  const closeEditPopup = () => {
+    setCreditCardToEdit(null);
+    setShowEditPopup(false);
   };
 
   const fetchAvailableCreditCards = async () => {
@@ -96,16 +160,11 @@ const ViewCreditCards = () => {
     }
   };
 
-  const { data, status, refetch } = useQuery(
-    "availableCreditCards",
-    fetchAvailableCreditCards
-  );
-
-  React.useEffect(() => {
-    if (data) {
+  useEffect(() => {
+    fetchAvailableCreditCards().then((data) => {
       updateAvailableCreditCards(data);
-    }
-  }, [data]);
+    });
+  }, []);
 
   const filterCreditCards = (creditCards, search) => {
     const searchLower = search.toLowerCase();
@@ -113,7 +172,7 @@ const ViewCreditCards = () => {
     return creditCards.filter(
       (creditCard) =>
         creditCard.CardType.toLowerCase().includes(searchLower) ||
-        creditCard.CreditLimit.toLowerCase().includes(searchLower)
+        creditCard.CreditLimit.toString().toLowerCase().includes(searchLower)
     );
   };
 
@@ -124,7 +183,7 @@ const ViewCreditCards = () => {
   return (
     <div id="parent">
       <CreditCardManagerNavbar />
-      <div id="loanHomeBody" className={showDeletePopup ? "blur" : ""}>
+      <div id="loanHomeBody" className={showDeletePopup || showEditPopup ? "blur" : ""}>
         <h1>Credit Cards</h1>
 
         <div>
@@ -148,111 +207,41 @@ const ViewCreditCards = () => {
                   <button className="sortButtons" onClick={() => toggleSort(1)}>
                     ⬆️
                   </button>
-                  <button
-                    className="sortButtons"
-                    onClick={() => toggleSort(-1)}>
+                  <button className="sortButtons" onClick={() => toggleSort(-1)}>
                     ⬇️
                   </button>
                 </div>
               </th>
-              <th>AnnualFee</th>
-              <th>Minimum Payment Percentage</th>
-              <th>Cash Advance Fee</th>
-              <th>Grace Period Days</th>
-              <th>Late Payment Fee</th>
+              <th>Annual Fee</th>
               <th>Status</th>
-              <th>Expiry Date</th>
-              <th>Issuing Bank</th>
-              <th>Cardholder Name</th>
               <th>Action</th>
             </tr>
           </thead>
-          {status === "loading" && (
-            <tbody>
-              <tr>
-                <td colSpan={13}>Loading...</td>
-              </tr>
-            </tbody>
-          )}
-          {status === "error" && (
-            <tbody>
-              <tr>
-                <td colSpan={13}>Error loading data</td>
-              </tr>
-            </tbody>
-          )}
-          {status === "success" &&
-          filterCreditCards(availableCreditCards, searchValue).length ? (
-            <tbody>
-              {filterCreditCards(availableCreditCards, searchValue)
-                .slice((page - 1) * limit, page * limit)
-                .map((creditCard) => (
-                  <tr key={creditCard.CreditCardId}>
-                    <td>{creditCard.CardType}</td>
-                    <td>{creditCard.CreditLimit}</td>
-                    <td>{creditCard.InterestRate}</td>
-                    <td>{creditCard.AnnualFee}%</td>
-                    <td>{creditCard.MinimumPaymentPercentage}</td>
-                    <td>{creditCard.CashAdvanceFee}</td>
-                    <td>{creditCard.GracePeriodDays}</td>
-                    <td>{creditCard.LatePaymentFee}</td>
-                    <td>${creditCard.Status}</td>
-                    <td>{creditCard.ExpiryDate}</td>
-                    <td>{creditCard.IssuingBank}</td>
-                    <td>${creditCard.CardholderName}</td>
-                    <td>
-                      <button
-                        className="viewloanbutton"
-                        id="greenButton"
-                        onClick={() =>
-                          navigate("/newloan/" + creditCard.creditCardId)
-                        }
-                        disabled={creditCard.Status !== "Pending"}
-                        style={{
-                          backgroundColor:
-                            creditCard.Status !== "Pending"
-                              ? "grey"
-                              : "initial",
-                          cursor:
-                            creditCard.Status !== "Pending"
-                              ? "not-allowed"
-                              : "pointer",
-                        }}>
-                        Edit
-                      </button>
-                      <button
-                        onClick={() =>
-                          handleDeleteClick(creditCard.creditCardId)
-                        }
-                        id="deleteButton"
-                        disabled={creditCard.Status !== "Pending"}
-                        style={{
-                          backgroundColor:
-                            creditCard.Status !== "Pending"
-                              ? "grey"
-                              : "initial",
-                          cursor:
-                            creditCard.Status !== "Pending"
-                              ? "not-allowed"
-                              : "pointer",
-                        }}>
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          ) : (
-            status === "success" && (
-              <tbody>
-                <tr>
-                  <td colSpan={13} className="no-records-cell">
-                    Oops! No records Found
+          <tbody>
+            {filterCreditCards(availableCreditCards, searchValue)
+              .slice((page - 1) * limit, page * limit)
+              .map((creditCard) => (
+                <tr key={creditCard.CreditCardId}>
+                  <td>{creditCard.CardType}</td>
+                  <td>{creditCard.CreditLimit}</td>
+                  <td>{creditCard.InterestRate}%</td>
+                  <td>{creditCard.AnnualFee}</td>
+                  <td>{creditCard.Status}</td>
+                  <td>
+                    <button
+                      className="editButton"
+                      onClick={() => handleEditClick(creditCard)}>
+                      Edit
+                    </button>
+                    <button
+                      className="deleteButton"
+                      onClick={() => handleDeleteClick(creditCard.CreditCardId)}>
+                      Delete
+                    </button>
                   </td>
                 </tr>
-              </tbody>
-            )
-          )}
+              ))}
+          </tbody>
         </table>
         {filterCreditCards(availableCreditCards, searchValue).length > 0 && (
           <div>
@@ -275,11 +264,111 @@ const ViewCreditCards = () => {
         )}
       </div>
 
+      {/* Delete Popup */}
       {showDeletePopup && (
         <div className="delete-popup">
           <p>Are you sure you want to delete?</p>
           <button onClick={handleConfirmDelete}>Yes, Delete</button>
           <button onClick={closeDeletePopup}>Cancel</button>
+        </div>
+      )}
+
+      {/* Edit Popup */}
+      {showEditPopup && (
+        <div className="edit-popup">
+          <h3>Edit Credit Card</h3>
+          <form onSubmit={(e) => e.preventDefault()}>
+            <label>Card Type:</label>
+            <input
+              type="text"
+              name="CardType"
+              value={formData.CardType}
+              onChange={handleEditChange}
+            />
+            <label>Credit Limit:</label>
+            <input
+              type="number"
+              name="CreditLimit"
+              value={formData.CreditLimit}
+              onChange={handleEditChange}
+            />
+            <label>Interest Rate:</label>
+            <input
+              type="number"
+              name="InterestRate"
+              value={formData.InterestRate}
+              onChange={handleEditChange}
+            />
+            <label>Annual Fee:</label>
+            <input
+              type="number"
+              name="AnnualFee"
+              value={formData.AnnualFee}
+              onChange={handleEditChange}
+            />
+            <label>Minimum Payment Percentage:</label>
+            <input
+              type="number"
+              name="MinimumPaymentPercentage"
+              value={formData.MinimumPaymentPercentage}
+              onChange={handleEditChange}
+            />
+            <label>Cash Advance Fee:</label>
+            <input
+              type="number"
+              name="CashAdvanceFee"
+              value={formData.CashAdvanceFee}
+              onChange={handleEditChange}
+            />
+            <label>Grace Period (Days):</label>
+            <input
+              type="number"
+              name="GracePeriodDays"
+              value={formData.GracePeriodDays}
+              onChange={handleEditChange}
+            />
+            <label>Late Payment Fee:</label>
+            <input
+              type="number"
+              name="LatePaymentFee"
+              value={formData.LatePaymentFee}
+              onChange={handleEditChange}
+            />
+            <label>Status:</label>
+            <select
+              name="Status"
+              value={formData.Status}
+              onChange={handleEditChange}>
+              <option value="Pending">Pending</option>
+              <option value="Active">Active</option>
+              <option value="Blocked">Blocked</option>
+            </select>
+            <label>Expiry Date:</label>
+            <input
+              type="date"
+              name="ExpiryDate"
+              value={formData.ExpiryDate}
+              onChange={handleEditChange}
+            />
+            <label>Issuing Bank:</label>
+            <input
+              type="text"
+              name="IssuingBank"
+              value={formData.IssuingBank}
+              onChange={handleEditChange}
+            />
+            <label>Cardholder Name:</label>
+            <input
+              type="text"
+              name="CardholderName"
+              value={formData.CardholderName}
+              onChange={handleEditChange}
+            />
+            <div>
+              <button onClick={handleUpdateCreditCard}>Save</button>
+              <button onClick={closeEditPopup}>Cancel</button>
+            </div>
+          </form>
         </div>
       )}
     </div>

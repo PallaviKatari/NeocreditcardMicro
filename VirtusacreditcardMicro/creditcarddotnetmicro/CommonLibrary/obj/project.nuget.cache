@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GAJ+9SCvXZZyC6rOmvQPrg9/UsWGtlyA4wIIMmq3WjsvBwdUhsf0ND0Iox8YJApoG3ypoFp8oPxUhg/bChKAJQ==",
+  "dgSpecHash": "iCkauyFBSd16OxOMySky08xprCpocIW8RnYb2d5nCrIF3cNmHVXmACyIXxgG/A2PPGn6PClEAhl/ssYw46C2+Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\cgvak-lt156\\Desktop\\VirtusaloanMicro\\VirtusaloanMicro\\loandotnetmicro\\CommonLibrary\\CommonLibrary.csproj",
+  "projectFilePath": "C:\\Users\\cgvak-lt156\\Desktop\\VirtusaCreditCardMicro\\VirtusacreditcardMicro\\VirtusacreditcardMicro\\creditcarddotnetmicro\\CommonLibrary\\CommonLibrary.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cgvak-lt156\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\cgvak-lt156\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.0\\microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",

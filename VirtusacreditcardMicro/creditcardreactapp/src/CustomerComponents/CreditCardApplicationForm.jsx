@@ -23,13 +23,12 @@ function CreditCardApplicationForm() {
   const onSubmit = async (data) => {
     let requestObject = {
       userId: userId,
-      creditCardId: creditCardId, // Set the loan ID from localStorage
+      creditCardId: creditCardId, // Set the creditCardId from localStorage
       applicationDate: new Date(),
       requestedCreditLimit: data.requestedCreditLimit,
       annualIncome: data.annualIncome,
-      applicationStatus: "Pending", // Initial status of the loan
+      applicationStatus: "Pending", // Initial status of the creditCard
       employmentStatus: data.employmentStatus,
-      annualIncome: data.annualIncome,
       remarks: data.remarks || "",
       proofOfIdentity: filePreview, // Include the base64 encoded file
       accountHolder: null, // Account details are initially null

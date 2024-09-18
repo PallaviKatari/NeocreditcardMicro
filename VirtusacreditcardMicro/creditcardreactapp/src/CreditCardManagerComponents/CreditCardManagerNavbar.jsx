@@ -37,10 +37,8 @@ const CreditCardManagerNavbar = () => {
                   <li><Link to="/viewcreditcards">View Credit Card Applications</Link></li>
                 </ul>
               </li>
-              <li><Link to="/creditcardrequest">Credit Card Requested</Link></li>
-
               <li><Link to="/viewcreditcarddisbursement">View Credit Card Disbursements</Link></li>
-
+              <li><Link to="/creditcardDisbursementForm">Add Credit Card Disbursements</Link></li>
               <li><Link to="/feedback">Feedback</Link></li>
 
             <li>

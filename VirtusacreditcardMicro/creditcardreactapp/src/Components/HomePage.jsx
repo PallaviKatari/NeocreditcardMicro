@@ -40,16 +40,11 @@ const HomePage = () => {
           src={process.env.PUBLIC_URL + "/loancoverimage.jpg"}
           alt="Cover"
         />
-        <div className="title">LoanVault</div>
+        <div className="title">Credit Card Application</div>
       </div>
 
       <div className="content">
-        <p>
-          Applying for a LoanVault is now easier than ever. Our platform offers
-          a seamless application process, competitive rates, and quick approval.
-          Start your application today and get one step closer to owning your
-          dream.
-        </p>
+       
       </div>
 
       <div className="contact">

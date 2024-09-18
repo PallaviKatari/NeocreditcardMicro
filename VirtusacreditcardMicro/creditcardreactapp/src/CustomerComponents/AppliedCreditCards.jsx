@@ -92,8 +92,8 @@ const AppliedCreditCards = () => {
     }
   };
 
-  const handleDeleteClick = (creditCardApplicationId) => {
-    setCreditCardToDelete(creditCardApplicationId);
+  const handleDeleteClick = (creditCard) => {
+    setCreditCardToDelete(creditCard.creditCardApplicationId);
     setShowDeletePopup(true);
   };
 
@@ -180,17 +180,6 @@ const AppliedCreditCards = () => {
     }
   };
 
-  const openAccountModal = (creditCard) => {
-    setSelectedCreditCard(creditCard);
-    setIsAccountModal(true); // Set modal type to account form
-    setAccountDetails({
-      accountHolder: creditCard.AccountHolder || "",
-      accountNumber: creditCard.AccountNumber || "",
-      ifscCode: creditCard.IFSCCode || "",
-    });
-    setErrors({}); // Reset errors
-  };
-
   const openCreditCardDetailsModal = (creditCard) => {
     setSelectedCreditCard(creditCard);
     setIsAccountModal(false); // Set modal type to loan details
@@ -213,29 +202,8 @@ const AppliedCreditCards = () => {
           View CreditCard Details
         </button>
         <button
-          className="accountDetailsButton"
-          onClick={() => openAccountModal(creditCard)}
-          disabled={
-            creditCard.ApplicationStatus !== "CreditCard Officer Approved" ||
-            isFinalStage
-          }
-          style={{
-            backgroundColor:
-              creditCard.ApplicationStatus !== "CreditCard Officer Approved" ||
-              isFinalStage
-                ? "grey"
-                : "initial",
-            cursor:
-              creditCard.ApplicationStatus !== "CreditCard Officer Approved" ||
-              isFinalStage
-                ? "not-allowed"
-                : "pointer",
-          }}>
-          Add Account Details
-        </button>
-        <button
           id="redButton"
-          onClick={() => handleDeleteClick(creditCard.creditCardApplicationId)}
+          onClick={() => handleDeleteClick(creditCard)}
           disabled={creditCard.ApplicationStatus !== "Pending" || isFinalStage}
           style={{
             backgroundColor:
@@ -422,7 +390,7 @@ const AppliedCreditCards = () => {
                   {selectedCreditCard.CreditCard.InterestRate}%
                 </p>
                 <p>
-                  <strong>Credit Limit:</strong> $
+                  <strong>Credit Limit:</strong> 
                   {selectedCreditCard.CreditCard.CreditLimit}
                 </p>
                 <p>
@@ -430,15 +398,15 @@ const AppliedCreditCards = () => {
                   {selectedCreditCard.CreditCard.AnnualFee}
                 </p>
                 <p>
-                  <strong>Minimum Payment Percentage:</strong> $
+                  <strong>Minimum Payment Percentage:</strong> 
                   {selectedCreditCard.CreditCard.MinimumPaymentPercentage}
                 </p>
                 <p>
                   <strong>Cash Advance Fee:</strong>{" "}
-                  {selectedCreditCard.CreditCard.CashAdvanceFee} months
+                  {selectedCreditCard.CreditCard.CashAdvanceFee} 
                 </p>
                 <p>
-                  <strong>Grace Period Days:</strong> $
+                  <strong>Grace Period Days:</strong> 
                   {selectedCreditCard.CreditCard.GracePeriodDays}
                 </p>
                 <button onClick={closeModal}>Close</button>

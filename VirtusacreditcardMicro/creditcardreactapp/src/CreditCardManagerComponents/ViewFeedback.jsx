@@ -60,6 +60,7 @@ const ViewFeedback = () => {
               <thead>
                 <tr>
                   <th>SNo</th>
+                  <th>Username</th>
                   <th>Date</th>
                   <th>Feedback</th>
                   <th>Action</th>
@@ -69,6 +70,7 @@ const ViewFeedback = () => {
                 {feedbacks.map((feedback, index) => (
                   <tr key={feedback.FeedbackId}>
                     <td>{index + 1}</td>
+                    <td>{feedback.User.Username}</td>
                     <td>{new Date(feedback.Date).toLocaleDateString()}</td>
                     <td>{feedback.FeedbackText}</td>
                     <td>

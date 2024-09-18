@@ -1,10 +1,9 @@
-
 import React, { useState, useEffect } from "react";
-import "./CreditCardApplicationApproval.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import API_BASE_URL from "../apiConfig";
 import BranchManagerNavbar from "./BranchManagerNavbar";
+import API_BASE_URL from "../apiConfig";
+import "./CreditCardApplicationApproval.css";
 
 const CreditCardApplicationApproval = () => {
   const navigate = useNavigate();
@@ -15,11 +14,13 @@ const CreditCardApplicationApproval = () => {
   const [searchValue, setSearchValue] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
 
+  // Fetch data on component mount
   useEffect(() => {
     fetchCreditCardApplications();
     fetchCreditCardDisbursements();
   }, []);
 
+  // Fetch credit card applications
   const fetchCreditCardApplications = async () => {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/creditcardapplication`, {
@@ -29,9 +30,11 @@ const CreditCardApplicationApproval = () => {
       });
 
       if (res.status === 200) {
-        setCreditCardApplications(res.data.filter(application =>
-          ["CreditCardOfficer Approved", "BranchManager Approved", "BranchManager Rejected"].includes(application.ApplicationStatus)
-        ));
+        setCreditCardApplications(
+          res.data.filter(application =>
+            ["Active", "BranchManager Approved", "BranchManager Rejected"].includes(application.ApplicationStatus)
+          )
+        );
       } else {
         navigate("/error");
       }
@@ -40,6 +43,7 @@ const CreditCardApplicationApproval = () => {
     }
   };
 
+  // Fetch credit card disbursements
   const fetchCreditCardDisbursements = async () => {
     try {
       const res = await axios.get(`${API_BASE_URL}/api/creditcarddisbursements`, {
@@ -58,27 +62,33 @@ const CreditCardApplicationApproval = () => {
     }
   };
 
+  // Get disbursement by application ID
   const getDisbursementByApplicationId = (applicationId) => {
     return creditCardDisbursements.find(
       (disbursement) => disbursement.creditCardApplicationId === applicationId
     );
   };
 
+  // Handle search input change
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value);
   };
 
+  // Handle status filter change
   const handleStatusFilterChange = (e) => {
     setStatusFilter(e.target.value);
   };
 
+  // Filter applications based on search and status
   const filterCreditCardApplications = (applications, search, status) => {
     const searchLower = search.toLowerCase();
-    const filteredBySearch = searchLower === "" ? applications : applications.filter(
-      (application) =>
-        application.CreditCard.CardType.toLowerCase().includes(searchLower) ||
-        application.User.Username.toLowerCase().includes(searchLower)
-    );
+    const filteredBySearch = searchLower === ""
+      ? applications
+      : applications.filter(
+          (application) =>
+            application.CreditCard.CardType.toLowerCase().includes(searchLower) ||
+            application.User.Username.toLowerCase().includes(searchLower)
+        );
 
     if (status === "All") {
       return filteredBySearch;
@@ -87,6 +97,7 @@ const CreditCardApplicationApproval = () => {
     return filteredBySearch.filter(application => application.ApplicationStatus === status);
   };
 
+  // Handle viewing of disbursement details
   const handleViewDisbursement = (applicationId) => {
     const disbursement = getDisbursementByApplicationId(applicationId);
     if (disbursement) {
@@ -95,12 +106,14 @@ const CreditCardApplicationApproval = () => {
     }
   };
 
+  // Close disbursement modal
   const closeDisbursementModal = () => {
     setShowDisbursementModal(false);
     setSelectedDisbursement(null);
   };
 
-  const updateDisbursementStatus = async (disbursementId, applicationId, status , obj) => {
+  // Update disbursement and application status
+  const updateDisbursementStatus = async (disbursementId, applicationId, status, disbursementObj) => {
     try {
       const disbursementResponse = await axios.get(
         `${API_BASE_URL}/api/creditcarddisbursements/${disbursementId}`,
@@ -121,6 +134,7 @@ const CreditCardApplicationApproval = () => {
       );
 
       if (disbursementResponse.status === 200 && applicationResponse.status === 200) {
+        // Update disbursement and application status
         const updatedDisbursement = {
           ...disbursementResponse.data,
           Status: status,
@@ -131,7 +145,7 @@ const CreditCardApplicationApproval = () => {
           ApplicationStatus: status === "Approved" ? "BranchManager Approved" : "BranchManager Rejected",
         };
 
-        const disbursementUpdateResponse = await axios.put(
+        await axios.put(
           `${API_BASE_URL}/api/creditcarddisbursements/${disbursementId}`,
           updatedDisbursement,
           {
@@ -141,7 +155,7 @@ const CreditCardApplicationApproval = () => {
           }
         );
 
-        const applicationUpdateResponse = await axios.put(
+        await axios.put(
           `${API_BASE_URL}/api/creditcardapplication/${applicationId}`,
           updatedApplication,
           {
@@ -151,51 +165,33 @@ const CreditCardApplicationApproval = () => {
           }
         );
 
-        if (disbursementUpdateResponse.status === 200 && applicationUpdateResponse.status === 200) {
-          fetchCreditCardApplications(); // Refresh data after status update
-          fetchCreditCardDisbursements(); // Refresh disbursements data
-          closeDisbursementModal(); // Close the modal
-
-
-        } else {
-          console.error("Error updating status:", disbursementUpdateResponse, applicationUpdateResponse);
-        }
-
-       console.log("obj", obj);
-
-   let now = new Date();
-      let utcOffset = now.getTimezoneOffset() * 60000; // Timezone offset in milliseconds
-      let istTime = new Date(now.getTime() + utcOffset + (5.5 * 60 * 60 * 1000)); // Adding 5.5 hours to UTC
-      let formattedDate = istTime.toISOString(); // This will give you the correct IST time in ISO format
-
-      let nobject = {
-          userId: obj.CreditCardApplication.User.UserId,
-          creditCardId: obj.CreditCardApplication.CreditCard.CreditCardId,
-          creditCardApplicationId: obj.CreditCardApplication.CreditCardApplicationId,
-          creditCardDisbursementId: obj.CreditCardnDisbursementId,
-          message: status === "Approved" 
-              ? `Your creditcard application | ${obj.LoanApplication.CreditCard.CardType} | Approved` 
-              : `Your creditcard application | ${obj.LoanApplication.CreditCard.CardType} | Rejected`,
+        // Send notification
+        const now = new Date();
+        const istTime = new Date(now.getTime() + now.getTimezoneOffset() * 60000 + (5.5 * 60 * 60 * 1000)).toISOString();
+        const notificationObj = {
+          userId: disbursementObj.CreditCardApplication.User.UserId,
+          creditCardId: disbursementObj.CreditCardApplication.CreditCard.CreditCardId,
+          creditCardApplicationId: disbursementObj.CreditCardApplication.CreditCardApplicationId,
+          creditCardDisbursementId: disbursementObj.CreditCardDisbursementId,
+          message: status === "Approved"
+            ? `Your credit card application for ${disbursementObj.CreditCardApplication.CreditCard.CardType} has been approved`
+            : `Your credit card application for ${disbursementObj.CreditCardApplication.CreditCard.CardType} has been rejected`,
           isRead: false,
-          createdAt: formattedDate // IST time in ISO format
-      };
+          createdAt: istTime,
+        };
 
-          const res =   await axios.post(
-            `${API_BASE_URL}/api/notifications`,
-            nobject,
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }
-          );
+        await axios.post(`${API_BASE_URL}/api/notifications`, notificationObj, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
-          console.log("notification", res , nobject);
-        
+        fetchCreditCardApplications();
+        fetchCreditCardDisbursements();
+        closeDisbursementModal();
       } else {
-        console.error("Error fetching data for update:", disbursementResponse, applicationResponse);
+        console.error("Error updating status.");
       }
-
     } catch (error) {
       console.error("Error updating disbursement status:", error);
     }
@@ -211,17 +207,14 @@ const CreditCardApplicationApproval = () => {
           <input
             id="searchBox"
             type="text"
-            placeholder="Search by Loan Type or Username..."
+            placeholder="Search by Card Type or Username..."
             value={searchValue}
             onChange={handleSearchChange}
           />
           
-          <label id='filter'>
+          <label id="filter">
             Filter by Status:
-            <select
-              value={statusFilter}
-              onChange={handleStatusFilterChange}
-            >
+            <select value={statusFilter} onChange={handleStatusFilterChange}>
               <option value="All">All</option>
               <option value="CreditCardOfficer Approved">CreditCardOfficer Approved</option>
               <option value="BranchManager Approved">BranchManager Approved</option>
@@ -253,13 +246,13 @@ const CreditCardApplicationApproval = () => {
                   <td>{application.User.Username}</td>
                   <td>{application.CreditCard.CardType}</td>
                   <td>{new Date(application.ApplicationDate).toLocaleDateString()}</td>
-                  <td>${application.CreditLimit}</td>
-                  <td>{application.AnnualFee}</td>
+                  <td>{application.CreditCard.CreditLimit}</td>
+                  <td>{application.CreditCard.AnnualFee}</td>
                   <td>{application.ApplicationStatus}</td>
                   <td>
                     <button
                       className="viewdisbursementbutton"
-                      onClick={() => handleViewDisbursement(application.CreditCardApplicationId)}
+                      onClick={() => handleViewDisbursement(application.CreditCard.CreditCardApplicationId)}
                     >
                       View Disbursement
                     </button>
@@ -272,77 +265,42 @@ const CreditCardApplicationApproval = () => {
       </div>
 
       {showDisbursementModal && selectedDisbursement && (
-        <div className="modal-overlay">
+        <div className="modal">
           <div className="modal-content">
-            <h2>CreditCard Disbursement Details</h2>
-            <p><strong>Disbursement Date:</strong> {new Date(selectedDisbursement.DisbursementDate).toLocaleDateString()}</p>
-            <p><strong>Disbursement Amount:</strong> ${selectedDisbursement.CreditLimit}</p>
-            <p><strong>Disbursement Method:</strong> {selectedDisbursement.DisbursementMethod}</p>
-            <p><strong>Status:</strong> {selectedDisbursement.Status}</p>
-            <p><strong>Remarks:</strong> {selectedDisbursement.Remarks}</p>
-            {selectedDisbursement.Status === "Pending" ? (
-              <>
-                <button
-                  className="greenButton"
-                  id="greenButton"
-                  onClick={() =>
-                    updateDisbursementStatus(
-                      selectedDisbursement.CreditCardDisbursementId,
-                      selectedDisbursement.CreditCardApplicationId,
-                      "Approved",
-                      selectedDisbursement
-                    )
-                  }
-                >
-                  Approve
-                </button>
-                <button
-                  className="redButton"
-                  id="redButton"
-                  onClick={() =>
-                    updateDisbursementStatus(
-                      selectedDisbursement.CreditCardDisbursementId,
-                      selectedDisbursement.CreditCardApplicationId,
-                      "Rejected",
-                      selectedDisbursement
-                    )
-                  }
-                >
-                  Reject
-                </button>
-              </>
-            ) : selectedDisbursement.Status === "Approved" ? (
-              <button
-                className="redButton"
-                id="redButton"
-                onClick={() =>
-                  updateDisbursementStatus(
-                    selectedDisbursement.CreditCardDisbursementId,
-                    selectedDisbursement.CreditCardApplicationId,
-                    "Rejected",
-                    selectedDisbursement
-                  )
-                }
-              >
-                Reject
-              </button>
-            ) : (
-              <button
-                className="greenButton"
-                id="greenButton"
-                onClick={() =>
-                  updateDisbursementStatus(
-                    selectedDisbursement.CreditCardDisbursementId,
-                    selectedDisbursement.CreditCardApplicationId,
-                    "Approved",
-                    selectedDisbursement
-                  )
-                }
-              >
-                Approve
-              </button>
-            )}
-            <button className="close-modal" onClick={closeDisbursementModal}>
+            <h2>Disbursement Details</h2>
+            <p>Credit Card: {selectedDisbursement.CreditCardApplication.CreditCard.CardType}</p>
+            <p>Username: {selectedDisbursement.CreditCardApplication.User.Username}</p>
+            <p>Disbursement Date: {new Date(selectedDisbursement.DisbursementDate).toLocaleDateString()}</p>
+
+            <button
+              className="approvebutton"
+              onClick={() =>
+                updateDisbursementStatus(
+                  selectedDisbursement.CreditCardDisbursementId,
+                  selectedDisbursement.CreditCardApplication.CreditCardApplicationId,
+                  "Approved",
+                  selectedDisbursement
+                )
+              }
+            >
+              Approve
+            </button>
+
+            <button
+              className="rejectbutton"
+              onClick={() =>
+                updateDisbursementStatus(
+                  selectedDisbursement.CreditCardDisbursementId,
+                  selectedDisbursement.CreditCardApplication.CreditCardApplicationId,
+                  "Rejected",
+                  selectedDisbursement
+                )
+              }
+            >
+              Reject
+            </button>
+
+            <button className="closebutton" onClick={closeDisbursementModal}>
               Close
             </button>
           </div>

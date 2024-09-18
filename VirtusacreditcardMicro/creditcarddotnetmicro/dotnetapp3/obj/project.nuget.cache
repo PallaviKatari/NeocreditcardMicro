@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9jwMKDJFWZ30sN5OTpoJeaE72AmqQCjzFykt2R/01Jc0gXIBuMsEvix7+YkmILoKTxqpgf7qTlVUv9sa8t2iSA==",
+  "dgSpecHash": "jPdelyTI8JbwRn393CD5RgSDqFXiQ7kzevOiGmuhM41vw7nSUXNjJ7BgGzYtbKu6Ikrs2+7hszHvrMTkCzvdIQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\cgvak-lt156\\Desktop\\VirtusaloanMicro\\VirtusaloanMicro\\loandotnetmicro\\dotnetapp3\\dotnetapp3.csproj",
+  "projectFilePath": "C:\\Users\\cgvak-lt156\\Desktop\\VirtusaCreditCardMicro\\VirtusacreditcardMicro\\VirtusacreditcardMicro\\creditcarddotnetmicro\\dotnetapp3\\dotnetapp3.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cgvak-lt156\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.0\\microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",
     "C:\\Users\\cgvak-lt156\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.0\\microsoft.aspnetcore.cryptography.internal.6.0.0.nupkg.sha512",

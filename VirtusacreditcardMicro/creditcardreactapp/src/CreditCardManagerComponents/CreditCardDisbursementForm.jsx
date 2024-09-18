@@ -1,242 +1,203 @@
-import React, { useState, useEffect } from "react";
-import "./CreditCardDisbursementForm.css"; // Import the CSS file for styling
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import "./CreditCardDisbursementForm.css";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSelector } from "react-redux";
 import API_BASE_URL from "../apiConfig";
 import CreditCardManagerNavbar from "./CreditCardManagerNavbar";
 
-const CreditCardDisbursementForm = () => {
+function CreditCardDisbursementForm() {
   const navigate = useNavigate();
-  const { creditCardApplicationId, creditCardDisbursementId } = useParams(); // Get loanApplicationId and loanDisbursementId from URL params
-
-  const [formData, setFormData] = useState({
-    creditCardApplicationId: creditCardApplicationId || "",
-    disbursementDate: "",
-    creditLimit: "",
-    disbursementMethod: "",
-    status: "Pending",
-    remarks: "",
-  });
-
-  const [errors, setErrors] = useState({});
+  const userId = useSelector((state) => state.user.userId);
+  const creditCardApplicationId = localStorage.getItem("CreditCardApplicationId");
   const [successPopup, setSuccessPopup] = useState(false);
 
-  useEffect(() => {
-    if (creditCardDisbursementId) {
-      fetchCreditCardDisbursement(creditCardDisbursementId);
-    }
-  }, [creditCardDisbursementId]);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const fetchCreditCardDisbursement = async (creditCardDisbursementId) => {
+  const onSubmit = async (data) => {
+    let requestObject = {
+      creditCardApplicationId: creditCardApplicationId, // Set from localStorage
+      disbursementDate: data.disbursementDate,
+      creditLimit: data.creditLimit,
+      disbursementMethod: data.disbursementMethod,
+      status: data.status,
+      remarks: data.remarks || "",
+    };
+
     try {
-      const response = await axios.get(
-        `${API_BASE_URL}/api/creditcarddisbursements/${creditCardDisbursementId}`,
+      const response = await axios.post(
+        `${API_BASE_URL}/api/creditcarddisbursements`,
+        requestObject,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
-
-      if (response.status === 200) {
-        setFormData({
-          creditCardApplicationId: response.data.CreditCardApplicationId,
-          disbursementDate: response.data.DisbursementDate.split("T")[0], // Format date for input
-          creditLimit: response.data.CreditLimit,
-          disbursementMethod: response.data.DisbursementMethod,
-          status: response.data.Status,
-          remarks: response.data.Remarks || "",
-        });
-      }
-    } catch (error) {
-      console.error("Error fetching CreditCard disbursement:", error);
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleDisbursement = async () => {
-    const fieldErrors = {};
-
-    if (!formData.disbursementDate) {
-      fieldErrors.disbursementDate = "Disbursement Date is required";
-    }
-
-    if (!formData.creditLimit) {
-      fieldErrors.creditLimit = "creditLimit is required";
-    } else if (
-      formData.creditLimit <= 0 
-    ) {
-      fieldErrors.creditLimit = "creditLimit must be between 1 and 100,000,000";
-    }
-
-    if (!formData.disbursementMethod) {
-      fieldErrors.disbursementMethod = "Disbursement Method is required";
-    }
-
-    if (!formData.remarks) {
-      fieldErrors.remarks = "Remarks is required";
-    }
-
-    if (Object.values(fieldErrors).some((error) => error)) {
-      setErrors(fieldErrors);
-      return;
-    }
-
-    try {
-      const requestObject = {
-        creditCardApplicationId: formData.creditCardApplicationId,
-        disbursementDate: formData.disbursementDate,
-        creditLimit: formData.creditLimit,
-        disbursementMethod: formData.disbursementMethod,
-        status: formData.status,
-        remarks: formData.remarks,
-      };
-
-      console.log("CreditCardDisbursement", requestObject);
-      console.log("CreditCardDisbursementId", creditCardApplicationId);
-
-      const response = creditCardApplicationId
-        ? await axios.put(
-            `${API_BASE_URL}/api/creditcarddisbursements/${creditCardApplicationId}`,
-            requestObject,
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }
-          )
-        : await axios.post(
-            `${API_BASE_URL}/api/creditcarddisbursements`,
-            requestObject,
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }
-          );
-
       if (response.status === 200) {
         setSuccessPopup(true);
       }
     } catch (error) {
-      console.error("Error during Credit Card disbursement:", error);
+      console.error("Error submitting credit card disbursement:", error);
+      navigate("/error");
     }
   };
 
-  const handleSuccessMessage = () => {
+  function handleSuccessMessage() {
     setSuccessPopup(false);
-    navigate(-1); // Navigate back to the previous page
-  };
-
-  // Get today's date in YYYY-MM-DD format for restricting past dates
-  const todayDate = new Date().toISOString().split("T")[0];
+    navigate("/availablecreditcarddisbursement");
+  }
 
   return (
     <div>
       <CreditCardManagerNavbar />
-      <div
-        className={`Credit-Card-disbursement-form-container ${
-          successPopup ? "blur" : ""
-        }`}>
-        <button
-          type="button"
-          className="back-button"
-          onClick={() => navigate(-1)}>
-          Back
-        </button>
-        {creditCardApplicationId ? (
-          <h2 className="Editheading">Edit Credit-Card Disbursement</h2>
-        ) : (
-          <h2 className="heading">Create New Credit-Card Disbursement</h2>
-        )}
-        <div>
-          <div className="form-group">
-            <label htmlFor="disbursementDate">
-              Disbursement Date <span className="required-asterisk">*</span>
-            </label>
-            <input
-              type="date"
-              name="disbursementDate"
-              value={formData.disbursementDate}
-              onChange={handleChange}
-              min={todayDate} // Restrict to today or future dates
-            />
-            {errors.disbursementDate && (
-              <div className="error">{errors.disbursementDate}</div>
-            )}
-          </div>
-          <div className="form-group">
-            <label htmlFor="creditLimit">
-              Disbursement CreditLimit{" "}
-              <span className="required-asterisk">*</span>
-            </label>
-            <input
-              type="number"
-              name="creditLimit"
-              value={formData.creditLimit}
-              placeholder="Disbursement CreditLimit"
-              onChange={handleChange}
-            />
-            {errors.creditLimit && (
-              <div className="error">{errors.creditLimit}</div>
-            )}
-          </div>
-          <div className="form-group">
-            <label htmlFor="disbursementMethod">
-              Disbursement Method <span className="required-asterisk">*</span>
-            </label>
-            <select
-              name="disbursementMethod"
-              value={formData.disbursementMethod}
-              onChange={handleChange}>
-              <option value="">Select Method</option>
-              <option value="Bank Transfer">Bank Transfer</option>
-              <option value="Check">Check</option>
-              <option value="Cash">Cash</option>
-              <option value="Other">Other</option>
-            </select>
-            {errors.disbursementMethod && (
-              <div className="error">{errors.disbursementMethod}</div>
-            )}
-          </div>
-          <div className="form-group">
-            <label htmlFor="remarks">Remarks</label>
-            <input
-              type="text"
-              name="remarks"
-              value={formData.remarks}
-              placeholder="Remarks"
-              onChange={handleChange}
-            />
-            {errors.remarks && <div className="error">{errors.remarks}</div>}
-          </div>
-          <button
-            className="loanbutton"
-            type="button"
-            onClick={handleDisbursement}>
-            {creditCardDisbursementId ? "Update Disbursement" : "Disburse Loan"}
+      <div className={`container ${successPopup ? "blur" : ""}`}>
+        <div className="button-container">
+          <button className="back-button" onClick={() => navigate(-1)}>
+            Back
           </button>
+          <h2 className="form-title">Credit Card Disbursement Form</h2>
         </div>
+        <form className="disbursement-form" onSubmit={handleSubmit(onSubmit)}>
+          <div className="form-group">
+            <label htmlFor="disbursementDate" className="form-label">
+              Disbursement Date:<span className="required-asterisk">*</span>
+            </label>
+            <Controller
+              name="disbursementDate"
+              control={control}
+              rules={{ required: "Disbursement date is required" }}
+              render={({ field }) => (
+                <div>
+                  <input
+                    id="disbursementDate"
+                    type="date"
+                    className="form-input"
+                    {...field}
+                  />
+                  {errors.disbursementDate && (
+                    <div className="error">{errors.disbursementDate.message}</div>
+                  )}
+                </div>
+              )}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="creditLimit" className="form-label">
+              Credit Limit:<span className="required-asterisk">*</span>
+            </label>
+            <Controller
+              name="creditLimit"
+              control={control}
+              rules={{
+                required: "Credit limit is required",
+                min: { value: 500, message: "Minimum credit limit is 500" },
+                max: { value: 1000000, message: "Maximum credit limit is 1,000,000" },
+              }}
+              render={({ field }) => (
+                <div>
+                  <input
+                    id="creditLimit"
+                    type="number"
+                    className="form-input"
+                    {...field}
+                  />
+                  {errors.creditLimit && (
+                    <div className="error">{errors.creditLimit.message}</div>
+                  )}
+                </div>
+              )}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="disbursementMethod" className="form-label">
+              Disbursement Method:<span className="required-asterisk">*</span>
+            </label>
+            <Controller
+              name="disbursementMethod"
+              control={control}
+              rules={{ required: "Disbursement method is required" }}
+              render={({ field }) => (
+                <div>
+                  <select id="disbursementMethod" className="form-input" {...field}>
+                    <option value="">Select Method</option>
+                    <option value="Card Issuance">Card Issuance</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
+                  </select>
+                  {errors.disbursementMethod && (
+                    <div className="error">{errors.disbursementMethod.message}</div>
+                  )}
+                </div>
+              )}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="status" className="form-label">
+              Status:<span className="required-asterisk">*</span>
+            </label>
+            <Controller
+              name="status"
+              control={control}
+              rules={{ required: "Status is required" }}
+              render={({ field }) => (
+                <div>
+                  <select id="status" className="form-input" {...field}>
+                    <option value="">Select Status</option>
+                    <option value="Disbursed">Disbursed</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Failed">Failed</option>
+                  </select>
+                  {errors.status && (
+                    <div className="error">{errors.status.message}</div>
+                  )}
+                </div>
+              )}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="remarks" className="form-label">
+              Remarks:
+            </label>
+            <Controller
+              name="remarks"
+              control={control}
+              render={({ field }) => (
+                <div>
+                  <input id="remarks" type="text" className="form-input" {...field} />
+                </div>
+              )}
+            />
+          </div>
+
+          <div className="form-group">
+            <button type="submit" className="submit-button">
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
       {successPopup && (
         <>
           <div className="overlay"></div>
           <div className="modalpopup">
-            <p>
-              {creditCardApplicationId
-                ? "Disbursement Updated Successfully!"
-                : "Credit Card Disbursement Successful!"}
-            </p>
-            <button onClick={handleSuccessMessage}>Ok</button>
+            <p className="successmessage">Successfully Disbursed!</p>
+            <button className="ok-button" onClick={handleSuccessMessage}>
+              Ok
+            </button>
           </div>
         </>
       )}
     </div>
   );
-};
+}
 
 export default CreditCardDisbursementForm;

@@ -127,7 +127,7 @@ function App() {
           }
         />
         <Route
-          path="/creditcardsapprovel"
+          path="/creditcardsapproval"
           element={
             <PrivateRoute>
               <CreditCardsApproval />{" "}
@@ -152,7 +152,7 @@ function App() {
           }
         />
         <Route
-          path="/creditcardapplicationapprovel"
+          path="/creditcardapplicationapproval"
           element={
             <PrivateRoute>
               <CreditCardApplicationApproval />{" "}

@@ -19,7 +19,7 @@ namespace dotnetapp4.Controllers
             _creditCardService = creditCardService;
         }
 
-        [Authorize(Roles = "CreditCardManager, BranchManager, Customer")]
+        [Authorize(Roles = "CreditCardOfficer, BranchManager, Customer")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CreditCard>>> GetAllCreditCards()
         {
@@ -27,7 +27,7 @@ namespace dotnetapp4.Controllers
             return Ok(creditCards);
         }
 
-        [Authorize(Roles = "CreditCardManager, BranchManager")]
+        [Authorize(Roles = "CreditCardOfficer, BranchManager")]
         [HttpGet("{creditCardId}")]
         public async Task<ActionResult<CreditCard>> GetCreditCardById(int creditCardId)
         {
@@ -38,7 +38,7 @@ namespace dotnetapp4.Controllers
             return Ok(creditCard);
         }
 
-        [Authorize(Roles = "CreditCardManager")]
+        [Authorize(Roles = "CreditCardOfficer")]
         [HttpPost]
         public async Task<ActionResult> AddCreditCard([FromBody] CreditCard creditCard)
         {
@@ -56,7 +56,7 @@ namespace dotnetapp4.Controllers
             }
         }
 
-        [Authorize(Roles = "CreditCardManager, BranchManager")]
+        [Authorize(Roles = "CreditCardOfficer, BranchManager")]
         [HttpPut("{creditCardId}")]
         public async Task<ActionResult> UpdateCreditCard(int creditCardId, [FromBody] CreditCard creditCard)
         {
@@ -78,7 +78,7 @@ namespace dotnetapp4.Controllers
             }
         }
 
-        [Authorize(Roles = "CreditCardManager, BranchManager")]
+        [Authorize(Roles = "CreditCardOfficer, BranchManager")]
         [HttpDelete("{creditCardId}")]
         public async Task<ActionResult> DeleteCreditCard(int creditCardId)
         {

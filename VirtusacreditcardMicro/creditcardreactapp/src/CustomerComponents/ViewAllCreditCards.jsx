@@ -48,7 +48,7 @@ const ViewAllCreditCards = () => {
 
   async function fetchData() {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/creditcards`, {
+      const response = await axios.get(`${API_BASE_URL}/api/creditcardapplication`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -130,7 +130,7 @@ const ViewAllCreditCards = () => {
     <div>
       <CustomerNavbar />
       <div id="loanHomeBody">
-        <h1>Available Loans</h1>
+        <h1>Available Credit Cards</h1>
 
         <div>
           <input

@@ -281,7 +281,7 @@ const ViewCreditCardDisbursement = () => {
             <h2>CreditCard Details</h2>
             <p>
               <strong>Card Type:</strong>{" "}
-              {selectedDisbursement.CreditCardApplication.CreditCard.CreditType}
+              {selectedDisbursement.CreditCardApplication.CreditCard.CardType}
             </p>
             <p>
               <strong>Interest Rate:</strong>{" "}

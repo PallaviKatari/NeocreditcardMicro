@@ -322,7 +322,7 @@ const CreditCardForm = () => {
               Status <span className="required-asterisk">*</span>
             </label>
             <input
-              type="number"
+              type="text"
               name="Status"
               value={formData.Status}
               placeholder="Status"
@@ -335,7 +335,7 @@ const CreditCardForm = () => {
               Expiry Date <span className="required-asterisk">*</span>
             </label>
             <input
-              type="number"
+              type="datetime"
               name="expiryDate"
               value={formData.expiryDate}
               placeholder="Expiry Date"
@@ -350,7 +350,7 @@ const CreditCardForm = () => {
               Issuing Bank <span className="required-asterisk">*</span>
             </label>
             <input
-              type="number"
+              type="text"
               name="issuingBank"
               value={formData.issuingBank}
               placeholder="Issuing Bank"
@@ -365,7 +365,7 @@ const CreditCardForm = () => {
               Cardholder Name <span className="required-asterisk">*</span>
             </label>
             <input
-              type="number"
+              type="text"
               name="cardholderName"
               value={formData.cardholderName}
               placeholder="Cardholder Name"
