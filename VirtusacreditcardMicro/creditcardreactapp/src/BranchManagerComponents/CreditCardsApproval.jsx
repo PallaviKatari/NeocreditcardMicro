@@ -77,7 +77,7 @@ const CreditCardsApproval = () => {
         return null;
       }
     } catch (error) {
-      console.error("Error fetching loan data:", error);
+      console.error("Error fetching creditcard data:", error);
       return null;
     }
   };
@@ -85,7 +85,7 @@ const CreditCardsApproval = () => {
   const updateCreditCardStatus = async (creditCardId, status) => {
     const creditCardData = await fetchCreditCardById(creditCardId);
     if (creditCardData) {
-      creditCardData.Status = status; // Update the status in the loan data
+      creditCardData.Status = status; // Update the status in the creditcard data
 
       try {
         const response = await axios.put(
@@ -108,7 +108,7 @@ const CreditCardsApproval = () => {
     }
   };
 
-  const { data, status, refetch } = useQuery("availableLoans", fetchAvailableCreditCards);
+  const { data, status, refetch } = useQuery("availablecreditcards", fetchAvailableCreditCards);
 
   React.useEffect(() => {
     if (data) {
@@ -137,7 +137,7 @@ const CreditCardsApproval = () => {
   return (
     <div id="parent">
       <BranchManagerNavbar />
-      <div id="loanHomeBody">
+      <div id="creditcardHomeBody">
         <h1>Credit Card</h1>
 
         <div>
@@ -159,7 +159,7 @@ const CreditCardsApproval = () => {
           </label>
         </div>
 
-        <table className="loan-table">
+        <table className="creditcard-table">
           <thead>
             <tr>
               <th>Card Type</th>
@@ -272,7 +272,7 @@ const CreditCardsApproval = () => {
         {filterCreditCards(availableCreditCards, searchValue).length > 0 && (
           <div>
             <button
-              className="viewloanbutton"
+              className="viewcreditcardbutton"
               onClick={() => handlePagination(page - 1)}
               disabled={page === 1}
             >
@@ -282,7 +282,7 @@ const CreditCardsApproval = () => {
               Page {page} of {totalPages}
             </span>
             <button
-              className="viewloanbutton"
+              className="viewcreditcardbutton"
               onClick={() => handlePagination(page + 1)}
               disabled={page === totalPages}
             >

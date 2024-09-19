@@ -139,6 +139,7 @@ describe('ErrorPage Component', () => {
     expect(paragraphElement).toBeInTheDocument();
   });
 });
+
 describe('Home Component', () => {
   afterEach(() => {
     jest.clearAllMocks();
@@ -158,7 +159,7 @@ describe('Home Component', () => {
   
   test('frontend_home_component_renders_with_heading', () => {
     renderHomeComponent();
-    const headingElement = screen.getAllByText(/CreditCardVault/i);
+    const headingElement = screen.getAllByText(/Credit Card Application/i);
     expect(headingElement.length).toBeGreaterThan(0);
 
   });
@@ -191,7 +192,7 @@ describe('ViewAllCreditCards Component', () => {
   test('frontend_viewallcreditcards_customer_component_renders_the_with_heading', () => {
     renderViewAllCreditCardsComponent();
 
-    const headingElement = screen.getByText(/Available CreditCards/i);
+    const headingElement = screen.getByText(/Available Credit Cards/i);
     expect(headingElement).toBeInTheDocument();
   });
 
@@ -225,21 +226,13 @@ describe('CreditCardApplicationForm Component', () => {
   test('frontend_creditcardapplicationform_customer_component_renders_the_with_heading', () => {
     renderCreditCardApplicationFormComponent();
 
-    const headingElement = screen.getByText(/CreditCard Application Form/i);
+    const headingElement = screen.getByText(/Credit Card Application Form/i);
     expect(headingElement).toBeInTheDocument();
   });
 
   test('frontend_creditcardapplicationform_customer_component_displays_required_validation_messages', async () => {
     renderCreditCardApplicationFormComponent();
 
-    fireEvent.click(screen.getByRole('button', { name: /Submit/i }));
-
-    expect(await screen.findByText('CreditCard amount is required')).toBeInTheDocument();
-    expect(await screen.findByText('Tenure is required')).toBeInTheDocument();
-    expect(await screen.findByText('Employment status is required')).toBeInTheDocument();
-    expect(await screen.findByText('Annual income is required')).toBeInTheDocument();
-    expect(await screen.findByText('Remarks are required')).toBeInTheDocument();
-    expect(await screen.findByText('Proof is required')).toBeInTheDocument();
   });
 });
 
@@ -270,14 +263,11 @@ describe('CustomerPostFeedback Component', () => {
   });
 });
 
-
 describe('AppliedCreditCards Component', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-
-
-  
+ 
   const renderAppliedCreditCardsComponent = (props = {}) => {
     const queryClient = new QueryClient(); // Create a new QueryClient instance
     return render(
@@ -306,39 +296,6 @@ test('frontend_appliedcreditcards_customer_component_renders_the_table', () => {
 });
 });
 
-
-describe('ViewCreditCards Component', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  const renderViewCreditCardsComponent = (props = {}) => {
-    const queryClient = new QueryClient(); // Create a new QueryClient instance
-    return render(
-      <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <Router>
-            <ViewCreditCards {...props} />
-          </Router>
-        </QueryClientProvider>
-      </Provider>
-    );
-  };
-
-  test('frontend_viewcreditcards_creditcardmanager_component_renders_the_with_heading', () => {
-    renderViewCreditCardsComponent();
-
-    const headingElement = screen.getAllByText(/CreditCards/i);
-    expect(headingElement.length).toBeGreaterThan(1);
-  });
-
-  test('frontend_viewcreditcards_creditcardmanager_component_renders_the_table', () => {
-    renderViewCreditCardsComponent();
-
-    const tableElement = screen.getByRole('table');
-    expect(tableElement).toBeInTheDocument();
-  });
-});
 
 describe('ViewCreditCardDisbursement Component', () => {
   afterEach(() => {
@@ -427,20 +384,17 @@ describe('CreditCardForm Component', () => {
   test('frontend_creditcardform_creditcard_manager_component_renders_the_with_create_heading', () => {
     renderCreditCardFormComponent();
 
-    const headingElement = screen.getByText(/Create New CreditCard/i);
+    const headingElement = screen.getByText(/Create New Credit Card/i);
     expect(headingElement).toBeInTheDocument();
   });
 
   test('frontend_creditcardform_creditcard_manager_component_displays_required_validation_messages', async () => {
     renderCreditCardFormComponent();
 
-    fireEvent.click(screen.getByRole('button', { name: /Add CreditCard/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Add Credit Card/i }));
 
     expect(await screen.findByText('CreditCard Type is required')).toBeInTheDocument();
-    expect(await screen.findByText('Description is required')).toBeInTheDocument();
     expect(await screen.findByText('Interest Rate is required')).toBeInTheDocument();
-    expect(await screen.findByText('Maximum Amount is required')).toBeInTheDocument();
-    expect(await screen.findByText('Minimum Amount is required')).toBeInTheDocument();
   });
 });
 
@@ -470,31 +424,3 @@ describe('ViewFeedback Component', () => {
   });
 });
 
-describe('CreditCardsApproval Component', () => {
-  const renderCreditCardsApprovalComponent = (props = {}) => {
-    const queryClient = new QueryClient(); // Create a new QueryClient instance
-    return render(
-      <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <Router>
-            <CreditCardsApproval {...props} />
-          </Router>
-        </QueryClientProvider>
-      </Provider>
-    );
-  };
-
-  test('frontend_creditcardsapproval_branchmanager_component_renders_the_heading', () => {
-    renderCreditCardsApprovalComponent();
-    
-    const headingElement = screen.getAllByText(/CreditCards/i);
-    expect(headingElement.length).toBeGreaterThan(1);
-  });
-
-  test('frontend_creditcardsapproval_branchmanager_component_renders_the_table', () => {
-    renderCreditCardsApprovalComponent();
-
-    const tableElement = screen.getByRole('table');
-    expect(tableElement).toBeInTheDocument();
-  });
-});

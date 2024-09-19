@@ -20,7 +20,7 @@
     margin-top: 10px;
 }
 
-#appliedloanbutton{
+#appliedcreditcardbutton{
 float: right;
 margin: 10px;
 }
@@ -48,7 +48,7 @@ margin: 10px;
     background-color: #e6332d;
   }
 
-  .viewallloansbutton  {
+  .viewallcreditcardsbutton  {
     padding: 10px 15px !important;
     margin: 10px 5px;
     border: none;

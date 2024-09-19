@@ -86,7 +86,7 @@ const CreditCardRequest = () => {
 
     const requestObject = {
       ...request,
-      ApplicationStatus: "Credit Card Officer Approved", // Approving the loan
+      ApplicationStatus: "Credit Card Officer Approved", // Approving the creditcard
     };
 
     try {
@@ -115,7 +115,7 @@ const CreditCardRequest = () => {
 
     const requestObject = {
       ...request,
-      ApplicationStatus: "Credit Card Officer Rejected", // Rejecting the loan
+      ApplicationStatus: "Credit Card Officer Rejected", // Rejecting the creditcard
     };
 
     try {
@@ -185,7 +185,7 @@ const CreditCardRequest = () => {
   return (
     <div id="home">
       <CreditCardManagerNavbar />
-      <div className="loanrequest">
+      <div className="creditcardrequest">
         <h1>CreditCard Requests for Approval</h1>
         <div>
           <input
@@ -313,7 +313,7 @@ const CreditCardRequest = () => {
                   </tr>
                   {showModal && expandedRow === index && (
                     <CreditCardDetailsModal
-                      loan={selectedCreditCard}
+                    creditcard={selectedCreditCard}
                       onClose={() => setShowModal(false)}
                     />
                   )}

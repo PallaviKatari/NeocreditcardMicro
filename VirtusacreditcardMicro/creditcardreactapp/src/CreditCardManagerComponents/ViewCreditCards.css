@@ -4,7 +4,7 @@
   float: left;
 }
 /* Styles for the container div */
-#loanHomeBody {
+#creditcardHomeBody {
   padding: 20px;
   background-color: #ffffff;
   height: 500px;
@@ -19,7 +19,7 @@ h1 {
 }
 
 /* Styles for the buttons */
-.viewloanbutton  {
+.viewcreditcardbutton  {
   padding: 10px 15px !important;
   margin: 10px 5px;
   border: none;
@@ -32,7 +32,7 @@ h1 {
   font-weight: bold;
 }
 
-.viewloanbutton:hover {
+.viewcreditcardbutton:hover {
   background-color: #0056b3;
   box-shadow: 0 5px 15px rgba(0,0,0,0.4);
 }
@@ -58,13 +58,13 @@ h1 {
 }
 
 /* Styles for the table */
-.loan-table {
+.creditcard-table {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid #ccc;
 }
 
-.loan-table th, .loan-table td {
+.creditcard-table th, .creditcard-table td {
   border: 1px solid #ccc;
   padding: 10px;
   text-align: center !important;

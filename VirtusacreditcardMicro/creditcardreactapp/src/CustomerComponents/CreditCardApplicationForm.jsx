@@ -100,7 +100,7 @@ function CreditCardApplicationForm() {
           </button>
           <h2 className="form-title">Credit Card Application Form</h2>
         </div>
-        <form className="loan-form" onSubmit={handleSubmit(onSubmit)}>
+        <form className="creditcard-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
             <label htmlFor="requestedCreditLimit" className="form-label">
             Credit Limit:<span className="required-asterisk">*</span>

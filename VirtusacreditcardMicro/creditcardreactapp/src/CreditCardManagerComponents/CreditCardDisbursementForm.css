@@ -1,6 +1,6 @@
-/* LoanForm.css */
+/* creditcardForm.css */
 
-.loan-disbursement-form-container {
+.creditcard-disbursement-form-container {
     max-width: 400px;
     margin: 30px auto;
     padding: 20px;
@@ -33,7 +33,7 @@
     cursor: pointer;
   }
   
-  .loanbutton {
+  .creditcardbutton {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -43,13 +43,13 @@
     transition: background-color 0.3s;
   }
   
-  .loanbutton:hover {
+  .creditcardbutton:hover {
     background-color: #0056b3;
   }
   
   /* Media query for responsiveness */
   @media (max-width: 480px) {
-    .loan-form-container {
+    .creditcard-form-container {
       max-width: 100%;
     }
   }

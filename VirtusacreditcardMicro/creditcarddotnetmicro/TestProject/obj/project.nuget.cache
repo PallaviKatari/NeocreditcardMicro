@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7RvlxnGCKkgSe+AI4Ohz3z7i4yAcgaC+dfbyqPO1Wbn4kpqDAP3rYUKndTdBzyiHonc9M4LerOUbNVCkVB/jlA==",
+  "dgSpecHash": "VZ39hbxcT8eQkpj+j4Sf9F9CpInn9esmG+OrZ1icPMqNXMYZ6nzpEQp7mqzvAql1T4vOnfjXq7lBIz5P0OtU+A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\cgvak-lt156\\Desktop\\VirtusaloanMicro\\VirtusaloanMicro\\loandotnetmicro\\TestProject\\TestProject.csproj",
+  "projectFilePath": "C:\\Users\\cgvak-lt156\\Desktop\\VirtusaCreditCardMicro\\VirtusacreditcardMicro\\VirtusacreditcardMicro\\creditcarddotnetmicro\\TestProject\\TestProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cgvak-lt156\\.nuget\\packages\\consul\\1.7.14.1\\consul.1.7.14.1.nupkg.sha512",
     "C:\\Users\\cgvak-lt156\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",

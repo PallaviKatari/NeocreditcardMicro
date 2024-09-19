@@ -183,7 +183,7 @@ const ViewCreditCards = () => {
   return (
     <div id="parent">
       <CreditCardManagerNavbar />
-      <div id="loanHomeBody" className={showDeletePopup || showEditPopup ? "blur" : ""}>
+      <div id="creditcardHomeBody" className={showDeletePopup || showEditPopup ? "blur" : ""}>
         <h1>Credit Cards</h1>
 
         <div>
@@ -196,7 +196,7 @@ const ViewCreditCards = () => {
           />
         </div>
 
-        <table className="loan-table">
+        <table className="creditcard-table">
           <thead>
             <tr>
               <th>Card Type</th>
@@ -246,7 +246,7 @@ const ViewCreditCards = () => {
         {filterCreditCards(availableCreditCards, searchValue).length > 0 && (
           <div>
             <button
-              className="viewloanbutton"
+              className="viewcreditcardbutton"
               onClick={() => handlePagination(page - 1)}
               disabled={page === 1}>
               Prev
@@ -255,7 +255,7 @@ const ViewCreditCards = () => {
               Page {page} of {totalPages}
             </span>
             <button
-              className="viewloanbutton"
+              className="viewcreditcardbutton"
               onClick={() => handlePagination(page + 1)}
               disabled={page === totalPages}>
               Next

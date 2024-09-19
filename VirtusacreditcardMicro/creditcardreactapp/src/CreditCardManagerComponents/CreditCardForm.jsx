@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import API_BASE_URL from "../apiConfig";
-import LoanManagerNavbar from "./CreditCardManagerNavbar";
+import CreditCardManagerNavbar from "./CreditCardManagerNavbar";
 
 const CreditCardForm = () => {
   const navigate = useNavigate();
@@ -182,8 +182,8 @@ const CreditCardForm = () => {
 
   return (
     <div>
-      <LoanManagerNavbar />
-      <div className={`loan-form-container ${successPopup ? "blur" : ""}`}>
+      <CreditCardManagerNavbar />
+      <div className={`creditcard-form-container ${successPopup ? "blur" : ""}`}>
         {creditCardId ? (
           <>
             <button
@@ -195,7 +195,7 @@ const CreditCardForm = () => {
             <h2 className="Editheading">Edit Credit Card</h2>
           </>
         ) : (
-          <h2>Create New Loan</h2>
+          <h2>Create New Credit Card</h2>
         )}
         <div>
           <div className="form-group">
@@ -376,7 +376,7 @@ const CreditCardForm = () => {
             )}
           </div>
           <button
-            className="loanbutton"
+            className="creditcardbutton"
             type="button"
             onClick={handleAddCreditCard}>
             {creditCardId ? "Update Credit Card" : "Add Credit Card"}

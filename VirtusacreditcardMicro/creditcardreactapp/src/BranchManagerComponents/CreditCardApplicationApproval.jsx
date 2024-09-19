@@ -200,7 +200,7 @@ const CreditCardApplicationApproval = () => {
   return (
     <div id="parent">
       <BranchManagerNavbar />
-      <div id="loanApplicationBody">
+      <div id="creditcardApplicationBody">
         <h1>Credit Card Applications</h1>
 
         <div>
@@ -223,7 +223,7 @@ const CreditCardApplicationApproval = () => {
           </label>
         </div>
 
-        <table className="loan-application-table">
+        <table className="creditcard-application-table">
           <thead>
             <tr>
               <th>Username</th>

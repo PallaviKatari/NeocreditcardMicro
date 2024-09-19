@@ -41,7 +41,7 @@ const ViewAllCreditCards = () => {
         setAppliedCreditCards(response.data);
       }
     } catch (error) {
-      console.log("Error fetching applied loans:", error);
+      console.log("Error fetching applied creditcards:", error);
       // navigate("/error");
     }
   }
@@ -55,9 +55,9 @@ const ViewAllCreditCards = () => {
       });
 
       if (response.status === 200) {
-        // Filter out loans that are not "Approved"
+        // Filter out creditcards that are not "Approved"
         const approvedCreditCards = response.data.filter(
-          (loan) => loan.Status === "Approved"
+          (creditcard) => creditcard.Status === "Approved"
         );
         setAvailableCreditCards(approvedCreditCards);
         setFilteredCreditCards(approvedCreditCards);
@@ -109,7 +109,7 @@ const ViewAllCreditCards = () => {
 
   const handleApplyClick = (creditcard) => {
     const isCreditCardApplied = appliedCreditCards.some(
-      (appliedCreditCard) => appliedCreditCard.LoanId === creditcard.CreditCardId
+      (appliedCreditCard) => appliedCreditCard.CreditCardId === creditcard.CreditCardId
     );
 
     if (isCreditCardApplied) {
@@ -129,7 +129,7 @@ const ViewAllCreditCards = () => {
   return (
     <div>
       <CustomerNavbar />
-      <div id="loanHomeBody">
+      <div id="creditcardHomeBody">
         <h1>Available Credit Cards</h1>
 
         <div>
@@ -142,7 +142,7 @@ const ViewAllCreditCards = () => {
           />
         </div>
 
-        <table className="loan-table">
+        <table className="creditcard-table">
           <thead>
             <tr>
               <th>Card Type</th>
@@ -204,7 +204,7 @@ const ViewAllCreditCards = () => {
                         "Applied Successfully"
                       ) : (
                         <button
-                          className="viewallloansbutton"
+                          className="viewallcreditcardsbutton"
                           id="greenButton"
                           onClick={() => handleApplyClick(creditcard)}
                         >
@@ -228,7 +228,7 @@ const ViewAllCreditCards = () => {
         {filteredCreditCards.length > 0 && (
           <div>
             <button
-              className="viewallloansbutton"
+              className="viewallcreditcardsbutton"
               onClick={() => handlePagination(page - 1)}
               disabled={page === 1}
             >
@@ -238,7 +238,7 @@ const ViewAllCreditCards = () => {
               Page {page} of {totalPages}
             </span>
             <button
-              className="viewallloansbutton"
+              className="viewallcreditcardsbutton"
               onClick={() => handlePagination(page + 1)}
               disabled={page === totalPages}
             >

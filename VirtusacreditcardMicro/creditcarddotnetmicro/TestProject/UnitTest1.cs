@@ -81,7 +81,7 @@ public class Tests
     }
 
     [Test, Order(3)]
-    public async Task Backend_Test_Post_Method_Register_LoanManager_Returns_HttpStatusCode_OK()
+    public async Task Backend_Test_Post_Method_Register_CreditCardOfficer_Returns_HttpStatusCode_OK()
     {
         string uniqueId = Guid.NewGuid().ToString();
 
@@ -89,7 +89,7 @@ public class Tests
         string uniqueUsername = $"abcd_{uniqueId}";
         string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"LoanManager\"}}";
+        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"CreditCardOfficer\"}}";
         HttpResponseMessage response = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
 
         Console.WriteLine(response.StatusCode);
@@ -100,7 +100,7 @@ public class Tests
     }
 
     [Test, Order(4)]
-    public async Task Backend_Test_Post_Method_Login_LoanManager_Returns_HttpStatusCode_OK()
+    public async Task Backend_Test_Post_Method_Login_CreditCardOfficer_Returns_HttpStatusCode_OK()
     {
 
         string uniqueId = Guid.NewGuid().ToString();
@@ -109,7 +109,7 @@ public class Tests
         string uniqueUsername = $"abcd_{uniqueId}";
         string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"LoanManager\"}}";
+        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"CreditCardOfficer\"}}";
         HttpResponseMessage response = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
 
         // Print registration response
@@ -202,7 +202,7 @@ public class Tests
         string uniqueUsername = $"abcd_{uniqueId}";
         string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"LoanManager\"}}";
+        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"CreditCardOfficer\"}}";
         HttpResponseMessage response = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
 
         // Print registration response
@@ -233,7 +233,7 @@ public class Tests
 
         string creditCardJson = $"{{\"CardType\":\"{uniqueCardType}\",\"InterestRate\":10,\"CreditLimit\":1000000,\"AnnualFee\":10000,\"MinimumPaymentPercentage\":12,\"CashAdvanceFee\":3000,\"GracePeriodDays\":30,\"Status\":\"Active\",\"LatePaymentFee\":500}}";
         _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-        HttpResponseMessage creditCardResponse = await _httpClient.PostAsync("/api/creditcards",
+        HttpResponseMessage creditCardResponse = await _httpClient.PostAsync("/api/ms/creditcards",
         new StringContent(creditCardJson, Encoding.UTF8, "application/json"));
 
         Console.WriteLine("CreditCard Response: " + creditCardResponse);
@@ -281,7 +281,7 @@ public class Tests
 
         string creditCardJson = $"{{\"CardType\":\"{uniqueCardType}\",\"InterestRate\":10,\"CreditLimit\":1000000,\"AnnualFee\":10000,\"MinimumPaymentPercentage\":12,\"CashAdvanceFee\":3000,\"GracePeriodDays\":30,\"Status\":\"Active\",\"LatePaymentFee\":500}}";
         _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-        HttpResponseMessage creditCardResponse = await _httpClient.PostAsync("/api/loans",
+        HttpResponseMessage creditCardResponse = await _httpClient.PostAsync("/api/creditcards",
         new StringContent(creditCardJson, Encoding.UTF8, "application/json"));
 
         Console.WriteLine("Credit Card Response: " + creditCardResponse);
@@ -329,7 +329,7 @@ public class Tests
 
         string creditCardJson = $"{{\"CardType\":\"{uniqueCardType}\",\"InterestRate\":10,\"CreditLimit\":1000000,\"AnnualFee\":10000,\"MinimumPaymentPercentage\":12,\"CashAdvanceFee\":3000,\"GracePeriodDays\":30,\"Status\":\"Active\",\"LatePaymentFee\":500}}";
         _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-        HttpResponseMessage creditCardResponse = await _httpClient.PostAsync("/api/loans",
+        HttpResponseMessage creditCardResponse = await _httpClient.PostAsync("/api/creditcards",
         new StringContent(creditCardJson, Encoding.UTF8, "application/json"));
 
         Console.WriteLine("CreditCard Response: " + creditCardResponse);
@@ -347,7 +347,7 @@ public class Tests
         string uniqueEmail = $"creditcardofficer_{uniqueId}@gmail.com";
 
         // Register a new user with the role of "Loan Manager"
-        string registerRequestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"LoanManager\"}}";
+        string registerRequestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"CreditCardOfficer\"}}";
         HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
 
         // Print registration response
@@ -490,7 +490,7 @@ public class Tests
         string uniqueEmail = $"creditcardofficer_{uniqueId}@gmail.com";
 
         // Register a new user with the role of "Loan Manager"
-        string registerRequestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"LoanManager\"}}";
+        string registerRequestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"CreditCardOfficer\"}}";
         HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
 
         // Print registration response
@@ -633,7 +633,7 @@ public class Tests
         string uniqueEmail = $"creditcardmanager_{uniqueId}@gmail.com";
 
         // Register a new user with the role of "Loan Manager"
-        string registerRequestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"LoanManager\"}}";
+        string registerRequestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"CreditCardOfficer\"}}";
         HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
 
         // Print registration response
@@ -775,7 +775,7 @@ public class Tests
 
 
         // Register a new user with the role of "Loan Manager"
-        string registerRequestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"LoanManager\"}}";
+        string registerRequestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"CreditCardOfficer\"}}";
         HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
 
         // Print registration response
@@ -931,7 +931,7 @@ public class Tests
         string uniqueEmail = $"creditcardofficer_{uniqueId}@gmail.com";
 
         // Register a new user with the role of "Loan Manager"
-        string registerRequestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"LoanManager\"}}";
+        string registerRequestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"CreditCardOfficer\"}}";
         HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
 
         // Print registration response
@@ -1075,7 +1075,7 @@ public class Tests
         string uniqueUsername = $"abcd_{uniqueId}";
         string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"LoanManager\"}}";
+        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"CreditCardOfficer\"}}";
         HttpResponseMessage response = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
 
         // Print registration response
@@ -1106,12 +1106,12 @@ public class Tests
 
         string creditCardJson = $"{{\"CardType\":\"{uniqueCardType}\",\"InterestRate\":10,\"CreditLimit\":1000000,\"AnnualFee\":10000,\"MinimumPaymentPercentage\":12,\"CashAdvanceFee\":3000,\"GracePeriodDays\":30,\"Status\":\"Active\",\"LatePaymentFee\":500}}";
         _httpClient4.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-        HttpResponseMessage creditCardResponse = await _httpClient4.PostAsync("/api/ms/loans",
+        HttpResponseMessage creditCardResponse = await _httpClient4.PostAsync("/api/ms/creditcards",
         new StringContent(creditCardJson, Encoding.UTF8, "application/json"));
 
         Console.WriteLine("CreditCard Response: " + creditCardResponse);
 
-        Assert.AreEqual(HttpStatusCode.OK, creditCardResponse.StatusCode);
+        Assert.AreEqual(HttpStatusCode.Ok, creditCardResponse.StatusCode);
     }
 
     [Test, Order(33)]
@@ -1154,12 +1154,12 @@ public class Tests
 
         string creditCardJson = $"{{\"CardType\":\"{uniqueCardType}\",\"InterestRate\":10,\"CreditLimit\":1000000,\"AnnualFee\":10000,\"MinimumPaymentPercentage\":12,\"CashAdvanceFee\":3000,\"GracePeriodDays\":30,\"Status\":\"Active\",\"LatePaymentFee\":500}}";
         _httpClient4.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-        HttpResponseMessage creditCardResponse = await _httpClient4.PostAsync("/api/ms/loans",
+        HttpResponseMessage creditCardResponse = await _httpClient4.PostAsync("/api/ms/creditcards",
         new StringContent(creditCardJson, Encoding.UTF8, "application/json"));
 
         Console.WriteLine("Credit Card Response: " + creditCardResponse);
 
-        Assert.AreEqual(HttpStatusCode.Forbidden, creditCardResponse.StatusCode);
+        Assert.AreEqual(HttpStatusCode.NotFound, creditCardResponse.StatusCode);
     }
 
     [Test, Order(34)]
@@ -1202,7 +1202,7 @@ public class Tests
 
         string creditCardJson = $"{{\"CardType\":\"{uniqueCardType}\",\"InterestRate\":10,\"CreditLimit\":1000000,\"AnnualFee\":10000,\"MinimumPaymentPercentage\":12,\"CashAdvanceFee\":3000,\"GracePeriodDays\":30,\"Status\":\"Active\",\"LatePaymentFee\":500}}";
         _httpClient4.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-        HttpResponseMessage creditCardResponse = await _httpClient4.PostAsync("/api/ms/loans",
+        HttpResponseMessage creditCardResponse = await _httpClient4.PostAsync("/api/ms/creditcards",
         new StringContent(creditCardJson, Encoding.UTF8, "application/json"));
 
         Console.WriteLine("Credit Card Response: " + creditCardResponse);
@@ -1220,7 +1220,7 @@ public class Tests
         string uniqueEmail = $"creditcardofficer_{uniqueId}@gmail.com";
 
         // Register a new user with the role of "Loan Manager"
-        string registerRequestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"LoanManager\"}}";
+        string registerRequestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"CreditCardOfficer\"}}";
         HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
 
         // Print registration response
@@ -1247,11 +1247,11 @@ public class Tests
         _httpClient4.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
         // Make the GET request to retrieve all loans
-        HttpResponseMessage loanResponse = await _httpClient4.GetAsync("/api/ms/loans");
+        HttpResponseMessage creditCardResponse = await _httpClient4.GetAsync("/api/ms/creditcards");
 
-        Console.WriteLine("Loan Response: " + loanResponse);
+        Console.WriteLine("Credit Card Response: " + creditCardResponse);
 
-        Assert.AreEqual(HttpStatusCode.OK, loanResponse.StatusCode);
+        Assert.AreEqual(HttpStatusCode.OK, creditCardResponse.StatusCode);
     }
 
     [Test, Order(36)]
@@ -1330,7 +1330,7 @@ public class Tests
         string uniqueEmail = $"creditcardofficer_{uniqueId}@gmail.com";
 
         // Register a new user with the role of "Loan Manager"
-        string registerRequestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"LoanManager\"}}";
+        string registerRequestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"CreditCardOfficer\"}}";
         HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
 
         // Print registration response

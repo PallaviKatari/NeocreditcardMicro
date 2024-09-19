@@ -48,7 +48,7 @@
   font-size: 1.5em;
 }
 
-.loan-form {
+.creditcard-form {
   width: 100%;
 }
 
@@ -131,7 +131,7 @@
 
 
 
-.loan-form {
+.creditcard-form {
     display: flex;
     flex-direction: column;
     width: 100%;

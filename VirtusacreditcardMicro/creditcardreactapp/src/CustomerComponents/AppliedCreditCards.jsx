@@ -182,7 +182,7 @@ const AppliedCreditCards = () => {
 
   const openCreditCardDetailsModal = (creditCard) => {
     setSelectedCreditCard(creditCard);
-    setIsAccountModal(false); // Set modal type to loan details
+    setIsAccountModal(false); // Set modal type to creditcard details
   };
 
   const closeModal = () => {
@@ -197,7 +197,7 @@ const AppliedCreditCards = () => {
     return (
       <>
         <button
-          className="viewLoanDetailsButton"
+          className="viewcreditcardDetailsButton"
           onClick={() => openCreditCardDetailsModal(creditCard)}>
           View CreditCard Details
         </button>
@@ -215,7 +215,7 @@ const AppliedCreditCards = () => {
               creditCard.ApplicationStatus !== "Pending" || isFinalStage
                 ? "not-allowed"
                 : "pointer",
-            // pointerEvents: loan.ApplicationStatus !== "Pending" || isFinalStage ? "none" : "auto"
+            // pointerEvents: creditcard.ApplicationStatus !== "Pending" || isFinalStage ? "none" : "auto"
           }}>
           Delete
         </button>
@@ -227,7 +227,7 @@ const AppliedCreditCards = () => {
     <div>
       <CustomerNavbar />
       <div
-        id="loanHomeBody"
+        id="creditcardHomeBody"
         className={
           showDeletePopup || selectedCreditCard || showSuccessModal
             ? "page-content blur"

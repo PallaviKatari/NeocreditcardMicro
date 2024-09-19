@@ -3,7 +3,7 @@
   float: left;
 }
 /* Styles for the container div */
-#loanApplicationBody {
+#creditcardApplicationBody {
   padding: 20px;
   background-color: #ffffff;
   height: 500px;
@@ -63,13 +63,13 @@ table {
   margin-bottom: 20px;
 }
 
-.loan-application-table {
+.creditcard-application-table {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid #ccc;
 }
 
-.loan-application-table th, .loan-application-table td {
+.creditcard-application-table th, .creditcard-application-table td {
   border: 1px solid #ccc;
   padding: 10px;
   text-align: center !important;
@@ -172,7 +172,7 @@ button.pagination-button:disabled {
   
 }
 
-.loanrequest {
+.creditcardrequest {
     width: 90%;
     display: block;
     margin: 20px auto;

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import "./ViewLoanDisbursement.css";
+import "./ViewCreditCardDisbursement.css";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 import API_BASE_URL from "../apiConfig";
-import LoanManagerNavbar from "./CreditCardManagerNavbar";
+import creditcardManagerNavbar from "./CreditCardManagerNavbar";
 
 const ViewCreditCardDisbursement = () => {
   const navigate = useNavigate();
@@ -122,8 +122,8 @@ const ViewCreditCardDisbursement = () => {
 
   return (
     <div id="parent">
-      <LoanManagerNavbar />
-      <div id="loanDisbursementBody">
+      <creditcardManagerNavbar />
+      <div id="creditcardDisbursementBody">
         <h1>CreditCard Disbursements</h1>
 
         <div>
@@ -136,7 +136,7 @@ const ViewCreditCardDisbursement = () => {
           />
         </div>
 
-        <table className="loan-disbursement-table">
+        <table className="creditcard-disbursement-table">
           <thead>
             <tr>
               <th>Username</th>
@@ -208,7 +208,7 @@ const ViewCreditCardDisbursement = () => {
                         Show User Details
                       </button>
                       <button
-                        className="viewloandetailsbutton"
+                        className="viewcreditcarddetailsbutton"
                         onClick={() =>
                           openCreditCardDetailsModal(disbursement)
                         }>
@@ -234,7 +234,7 @@ const ViewCreditCardDisbursement = () => {
           0 && (
           <div>
             <button
-              className="viewloanbutton"
+              className="viewcreditcardbutton"
               onClick={() => handlePagination(page - 1)}
               disabled={page === 1}>
               Prev
@@ -243,7 +243,7 @@ const ViewCreditCardDisbursement = () => {
               Page {page} of {totalPages}
             </span>
             <button
-              className="viewloanbutton"
+              className="viewcreditcardbutton"
               onClick={() => handlePagination(page + 1)}
               disabled={page === totalPages}>
               Next

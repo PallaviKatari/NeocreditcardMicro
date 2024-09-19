@@ -1,4 +1,4 @@
-/* LoanRequest.css */
+/* creditcardRequest.css */
 
 /* Container styles */
 .container {
@@ -165,7 +165,7 @@ button.pagination-button:disabled {
   
 }
 
-.loanrequest {
+.creditcardrequest {
     width: 90%;
     display: block;
     margin: 20px auto;
