@@ -35,6 +35,7 @@ const CreditCardManagerNavbar = () => {
                 <ul className="dropdown-menu">
                   <li><Link to="/newcreditcard">Add Credit Card</Link></li>
                   <li><Link to="/viewcreditcards">View Credit Card Applications</Link></li>
+                  <li><Link to="/creditcardrequest">Credit Card Requested</Link></li>
                 </ul>
               </li>
               <li><Link to="/viewcreditcarddisbursement">View Credit Card Disbursements</Link></li>

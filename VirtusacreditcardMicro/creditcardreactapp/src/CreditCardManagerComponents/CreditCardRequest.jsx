@@ -136,16 +136,16 @@ const CreditCardRequest = () => {
     }
   };
 
-  const handleRowExpand = (index) => {
-    if (expandedRow === index) {
-      setShowModal(false);
-      setExpandedRow(null);
-    } else {
-      setSelectedCreditCard(paginatedCreditCardRequests[index]);
-      setShowModal(true);
-      setExpandedRow(index);
-    }
-  };
+  // const handleRowExpand = (index) => {
+  //   if (expandedRow === index) {
+  //     setShowModal(false);
+  //     setExpandedRow(null);
+  //   } else {
+  //     setSelectedCreditCard(paginatedCreditCardRequests[index]);
+  //     setShowModal(true);
+  //     setExpandedRow(index);
+  //   }
+  // };
 
   const handleCreditCardDisbursement = (creditCardApplicationId) => {
     navigate(`/creditcardDisbursementForm/${creditCardApplicationId}`);
@@ -306,9 +306,9 @@ const CreditCardRequest = () => {
                           Add Credit Card Disbursement
                         </button>
                       )}
-                      <button onClick={() => handleRowExpand(index)}>
+                      {/* <button onClick={() => handleRowExpand(index)}>
                         Show More
-                      </button>
+                      </button> */}
                     </td>
                   </tr>
                   {showModal && expandedRow === index && (

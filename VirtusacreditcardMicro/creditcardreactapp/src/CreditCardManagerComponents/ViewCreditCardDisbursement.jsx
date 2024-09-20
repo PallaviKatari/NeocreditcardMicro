@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import axios from "axios";
 import API_BASE_URL from "../apiConfig";
-import creditcardManagerNavbar from "./CreditCardManagerNavbar";
+import CreditCardManagerNavbar from "./CreditCardManagerNavbar";
 
 const ViewCreditCardDisbursement = () => {
   const navigate = useNavigate();
@@ -122,7 +122,7 @@ const ViewCreditCardDisbursement = () => {
 
   return (
     <div id="parent">
-      <creditcardManagerNavbar />
+      <CreditCardManagerNavbar/>
       <div id="creditcardDisbursementBody">
         <h1>CreditCard Disbursements</h1>
 

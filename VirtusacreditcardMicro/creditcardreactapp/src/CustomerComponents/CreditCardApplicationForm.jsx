@@ -21,6 +21,8 @@ function CreditCardApplicationForm() {
   } = useForm();
 
   const onSubmit = async (data) => {
+    // Retrieve and log the value from localStorage to confirm it's stored correctly
+    console.log("Stored CreditCardId:", localStorage.getItem("CreditCardId"));
     let requestObject = {
       userId: userId,
       creditCardId: creditCardId, // Set the creditCardId from localStorage
@@ -103,7 +105,7 @@ function CreditCardApplicationForm() {
         <form className="creditcard-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
             <label htmlFor="requestedCreditLimit" className="form-label">
-            Credit Limit:<span className="required-asterisk">*</span>
+              Credit Limit:<span className="required-asterisk">*</span>
             </label>
             <Controller
               name="requestedCreditLimit"
@@ -118,7 +120,9 @@ function CreditCardApplicationForm() {
                     {...field}
                   />
                   {errors.requestedCreditLimit && (
-                    <div className="error">{errors.requestedCreditLimit.message}</div>
+                    <div className="error">
+                      {errors.requestedCreditLimit.message}
+                    </div>
                   )}
                 </div>
               )}
@@ -127,7 +131,7 @@ function CreditCardApplicationForm() {
 
           <div className="form-group">
             <label htmlFor="annualIncome" className="form-label">
-            Annual Income:<span className="required-asterisk">*</span>
+              Annual Income:<span className="required-asterisk">*</span>
             </label>
             <Controller
               name="annualIncome"
@@ -162,8 +166,7 @@ function CreditCardApplicationForm() {
                   <select
                     id="employmentStatus"
                     className="form-input"
-                    {...field}
-                  >
+                    {...field}>
                     <option value="">Select Employment Status</option>
                     <option value="Employed">Employed</option>
                     <option value="Self-Employed">Self-Employed</option>
@@ -229,7 +232,7 @@ function CreditCardApplicationForm() {
 
           <div className="form-group">
             <label htmlFor="file" className="form-label">
-            Proof Of Identity:<span className="required-asterisk">*</span>
+              Proof Of Identity:<span className="required-asterisk">*</span>
             </label>
             <Controller
               name="file"

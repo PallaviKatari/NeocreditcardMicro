@@ -113,6 +113,7 @@ const CustomerNavbar = () => {
       <ul className="nav-links">
         <li><p className="user-role">{userName} / {userRole}</p></li>
         <li><Link to="/home">Home</Link></li>
+        <li><Link to="/availablecreditcard">View All CreditCards</Link></li>
         <li><Link to="/appliedcreditcard">Applied CreditCards</Link></li>
         <li><Link to="/creditcardapplications">Add CreditCards</Link></li>
         <li className="dropdown">

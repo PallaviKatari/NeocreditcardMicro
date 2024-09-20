@@ -32,8 +32,8 @@ const BranchManagerNavbar = () => {
         <li className="dropdown">
           <span className="dropdown-label">Credit Card</span>
           <ul className="dropdown-menu">
-            <li><Link to="/viewcreditcards">View Credit Cards</Link></li>
-            <li><Link to="/appliedcreditcard">Credit Card Applications</Link></li>
+            {/* <li><Link to="/viewcreditcards">View Credit Cards</Link></li>
+            <li><Link to="/appliedcreditcard">Credit Card Applications</Link></li> */}
             <li><Link to="/creditcardsapproval">Credit Card Approval</Link></li>
             <li><Link to="/creditcardapplicationapproval">Credit Card Application Approval</Link></li>
           </ul>

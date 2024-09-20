@@ -205,3 +205,18 @@ h1 {
   background-color: green !important;
 }
 
+.edit-popup{
+  border-style: solid;
+  border-color: #333;
+  margin-left: 100px;
+  margin-right: 100px;
+  padding: 50px;
+}
+
+.editButton{
+  background-color: rgb(230, 230, 64);
+}
+
+.deleteButton{
+  background-color:red;
+}

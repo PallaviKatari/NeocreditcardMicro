@@ -22,12 +22,12 @@ const ViewAllCreditCards = () => {
   useEffect(() => {
     fetchAppliedCreditCards();
     fetchData();
-  }, []);
+  }, [userId]); // Ensure that the effect runs whenever `userId` changes
 
   async function fetchAppliedCreditCards() {
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/api/creditcardapplication/user/${userId}`,
+        `${API_BASE_URL}/api/creditcards/user/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -35,27 +35,25 @@ const ViewAllCreditCards = () => {
         }
       );
 
-      console.log("Response" , response);
+      console.log("Applied Credit Cards Response:", response);
 
       if (response.status === 200) {
         setAppliedCreditCards(response.data);
       }
     } catch (error) {
       console.log("Error fetching applied creditcards:", error);
-      // navigate("/error");
     }
   }
 
   async function fetchData() {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/creditcardapplication`, {
+      const response = await axios.get(`${API_BASE_URL}/api/creditcards`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
       if (response.status === 200) {
-        // Filter out creditcards that are not "Approved"
         const approvedCreditCards = response.data.filter(
           (creditcard) => creditcard.Status === "Approved"
         );
@@ -108,21 +106,37 @@ const ViewAllCreditCards = () => {
   };
 
   const handleApplyClick = (creditcard) => {
+    console.log("Credit Card to Apply:", creditcard);
+    console.log("Applied Credit Cards:", appliedCreditCards);
+
+    // Check if the credit card has already been applied
     const isCreditCardApplied = appliedCreditCards.some(
-      (appliedCreditCard) => appliedCreditCard.CreditCardId === creditcard.CreditCardId
+      (appliedCreditCard) =>
+        appliedCreditCard.CreditCardId === creditcard.CreditCardId
     );
 
     if (isCreditCardApplied) {
       alert("CreditCard is already applied.");
     } else {
+      // Set the CreditCardId in localStorage
       localStorage.setItem("CreditCardId", creditcard.CreditCardId);
+
+      // Log a confirmation message
+      console.log("Applied Credit Cards:", creditcard.CreditCardId);
+
+      // Retrieve and log the value from localStorage to confirm it's stored correctly
+      console.log("Stored CreditCardId:", localStorage.getItem("CreditCardId"));
+
       dispatch(
         setCreditCardInfo({
           CreditCardId: creditcard.CreditCardId,
           CardType: creditcard.CardType,
         })
       );
-      navigate("/creditcardApplicationForm");
+      navigate("/creditcardapplications");
+
+      // Update the applied cards locally after the application
+      setAppliedCreditCards((prev) => [...prev, creditcard]); // Add applied credit card to the list
     }
   };
 
@@ -153,15 +167,13 @@ const ViewAllCreditCards = () => {
                   <button
                     className="sortButtons"
                     role="ascending-button"
-                    onClick={() => toggleSort(1)}
-                  >
+                    onClick={() => toggleSort(1)}>
                     ⬆️
                   </button>
                   <button
                     className="sortButtons"
                     role="descending-button"
-                    onClick={() => toggleSort(-1)}
-                  >
+                    onClick={() => toggleSort(-1)}>
                     ⬇️
                   </button>
                 </div>
@@ -199,15 +211,15 @@ const ViewAllCreditCards = () => {
                     <td>
                       {appliedCreditCards.some(
                         (appliedCreditCard) =>
-                          appliedCreditCard.CreditCardId === creditcard.CreditCardId
+                          appliedCreditCard.CreditCardId ===
+                          creditcard.CreditCardId
                       ) ? (
                         "Applied Successfully"
                       ) : (
                         <button
                           className="viewallcreditcardsbutton"
                           id="greenButton"
-                          onClick={() => handleApplyClick(creditcard)}
-                        >
+                          onClick={() => handleApplyClick(creditcard)}>
                           Apply
                         </button>
                       )}
@@ -230,8 +242,7 @@ const ViewAllCreditCards = () => {
             <button
               className="viewallcreditcardsbutton"
               onClick={() => handlePagination(page - 1)}
-              disabled={page === 1}
-            >
+              disabled={page === 1}>
               Prev
             </button>
             <span>
@@ -240,8 +251,7 @@ const ViewAllCreditCards = () => {
             <button
               className="viewallcreditcardsbutton"
               onClick={() => handlePagination(page + 1)}
-              disabled={page === totalPages}
-            >
+              disabled={page === totalPages}>
               Next
             </button>
           </div>
